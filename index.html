@@ -98,7 +98,24 @@
       font-size: 14px;
       font-weight: 600;
       letter-spacing: 0.02em;
-      margin-bottom: 28px;
+      margin-bottom: 14px;
+    }
+    .db-page-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      margin: 0 0 28px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #fbbf24;
+      color: #1e293b;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .db-page-link:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
     }
     .principles {
       display: grid;
@@ -742,6 +759,14 @@
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.75),
         0 4px 12px rgba(61, 44, 41, 0.06);
+    }
+    body.kid-mode .db-page-link {
+      background: #e63946;
+      color: #fff;
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
+    }
+    body.kid-mode .db-page-link:focus-visible {
+      outline-color: #1d3557;
     }
     body.kid-mode .principle {
       background: #fffef9;
@@ -1935,6 +1960,7 @@
       <p class="hero-sub">全家聖誕豪華 Staycation</p>
       <p class="hero-lead">免舟車勞頓、隨時上房充電嘅高舒適度慶祝方案。揀一間酒店，即睇度身訂造嘅三日兩夜分段式行程。</p>
       <p class="path-line">先揀酒店 → 再睇行程 → 再打勾準備</p>
+      <a class="db-page-link" href="discovery-bay.html">愉景灣酒店 × 迪士尼活動建議</a>
       <div class="principles">
         <div class="principle">
           <div class="principle-label">交通緩衝</div>
