@@ -202,7 +202,7 @@
       -webkit-overflow-scrolling: touch;
       scroll-snap-type: x mandatory;
       scroll-padding-inline: 4px;
-      touch-action: pan-x;
+      touch-action: pan-x pan-y; /* allow vertical page scroll over strip (WA WebView) */
       padding: 6px 4px 10px;
       margin: 0 -4px;
       scrollbar-width: none;
@@ -370,7 +370,7 @@
       -webkit-overflow-scrolling: touch;
       scroll-snap-type: x mandatory;
       scroll-padding-inline: 4px;
-      touch-action: pan-x;
+      touch-action: pan-x pan-y; /* allow vertical page scroll over strip (WA WebView) */
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
@@ -438,7 +438,7 @@
       -webkit-overflow-scrolling: touch;
       scroll-snap-type: x mandatory;
       scroll-padding-inline: 4px;
-      touch-action: pan-x;
+      touch-action: pan-x pan-y; /* allow vertical page scroll over strip (WA WebView) */
       padding: 6px 4px 12px;
       margin: 0 -4px;
       scrollbar-width: none;
@@ -2235,7 +2235,7 @@
       </div>
     </section>
 
-    <p class="footer">家庭內部企劃 · 2026 聖誕 · 選擇會存喺本機瀏覽器（v5.6 · polish · day h-scroll + doodle BG parallax · WhatsApp 可用）</p>
+    <p class="footer">家庭內部企劃 · 2026 聖誕 · 選擇會存喺本機瀏覽器（v5.7 · scroll-fix · day h-scroll + doodle BG parallax · WhatsApp 可用）</p>
   </main>
 
   <script>
@@ -2299,6 +2299,57 @@
             try { localStorage.removeItem('staycation_' + id + '_v5'); } catch (e) {}
           }
         }
+      }
+
+
+      /* Horizontal strips: CSS pan-x pan-y is primary. Light touch helper for
+         stubborn iOS/Android WebViews that trap vertical when overflow-y:hidden.
+         Never preventDefault — only temporarily pause overflow-x on clear vertical. */
+      function bindHScrollStrip(strip) {
+        if (!strip || strip.getAttribute('data-hscroll-bound') === '1') return;
+        strip.setAttribute('data-hscroll-bound', '1');
+        var startX = 0, startY = 0, locked = null;
+        function resetLock() {
+          locked = null;
+          strip.style.overflowX = '';
+        }
+        strip.addEventListener('touchstart', function (ev) {
+          if (!ev.touches || ev.touches.length !== 1) return;
+          startX = ev.touches[0].clientX;
+          startY = ev.touches[0].clientY;
+          locked = null;
+          strip.style.overflowX = '';
+        }, { passive: true });
+        strip.addEventListener('touchmove', function (ev) {
+          if (!ev.touches || ev.touches.length !== 1) return;
+          if (locked === 'h') return;
+          var dx = ev.touches[0].clientX - startX;
+          var dy = ev.touches[0].clientY - startY;
+          var adx = dx < 0 ? -dx : dx;
+          var ady = dy < 0 ? -dy : dy;
+          if (locked === null) {
+            if (ady > 8 && ady > adx * 1.2) {
+              locked = 'v';
+              /* Clear vertical: let page scroll; pause strip h-scroll capture */
+              strip.style.overflowX = 'hidden';
+              return;
+            }
+            if (adx > 8 && adx > ady * 1.2) {
+              locked = 'h';
+              strip.style.overflowX = '';
+              return;
+            }
+          } else if (locked === 'v') {
+            strip.style.overflowX = 'hidden';
+          }
+        }, { passive: true });
+        strip.addEventListener('touchend', resetLock, { passive: true });
+        strip.addEventListener('touchcancel', resetLock, { passive: true });
+      }
+
+      function bindAllHScrollStrips() {
+        var strips = document.querySelectorAll('.hotel-grid, .tabs, .hotel-itinerary');
+        for (var i = 0; i < strips.length; i++) bindHScrollStrip(strips[i]);
       }
 
       function bindTap(el, handler) {
@@ -2373,6 +2424,7 @@
           updateParallax(true);
         });
 
+        bindAllHScrollStrips();
         initParallax();
       }
 
