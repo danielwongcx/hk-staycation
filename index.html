@@ -399,10 +399,8 @@
       user-select: none;
       white-space: nowrap;
     }
-    #day-all:checked ~ .card .day-tab[for="day-all"],
-    #day-day1:checked ~ .card .day-tab[for="day-day1"],
-    #day-day2:checked ~ .card .day-tab[for="day-day2"],
-    #day-day3:checked ~ .card .day-tab[for="day-day3"] {
+    .day-tab.is-active,
+    .day-tab[aria-current="true"] {
       background: #fff;
       color: #0f172a;
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
@@ -410,25 +408,9 @@
 
     /* Itinerary panels */
     #itinerary-root { display: block; }
+    /* Always: Day 1/2/3 side-by-side h-scroll (indicators, not filters) */
     .hotel-itinerary {
       display: none;
-      flex-direction: column;
-      gap: 28px;
-    }
-    #hotel-1:checked ~ .card #itinerary-hotel-1,
-    #hotel-2:checked ~ .card #itinerary-hotel-2,
-    #hotel-3:checked ~ .card #itinerary-hotel-3,
-    #hotel-4:checked ~ .card #itinerary-hotel-4 {
-      display: flex;
-    }
-    .day-block { display: block; }
-    #day-day1:checked ~ .card .day-block:not([data-day="day1"]),
-    #day-day2:checked ~ .card .day-block:not([data-day="day2"]),
-    #day-day3:checked ~ .card .day-block:not([data-day="day3"]) {
-      display: none !important;
-    }
-    /* Day-all: horizontal snap cards for Day 1/2/3 */
-    #day-all:checked ~ .card .hotel-itinerary {
       flex-direction: row;
       flex-wrap: nowrap;
       align-items: stretch;
@@ -441,35 +423,36 @@
       touch-action: pan-x pan-y; /* allow vertical page scroll over strip (WA WebView) */
       padding: 6px 4px 12px;
       margin: 0 -4px;
-      scrollbar-width: none;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(245, 158, 11, 0.55) rgba(241, 245, 249, 0.4);
       -ms-overflow-style: none;
     }
-    #day-all:checked ~ .card .hotel-itinerary::-webkit-scrollbar { display: none; width: 0; height: 0; }
-    #day-all:checked ~ .card .day-block {
+    #hotel-1:checked ~ .card #itinerary-hotel-1,
+    #hotel-2:checked ~ .card #itinerary-hotel-2,
+    #hotel-3:checked ~ .card #itinerary-hotel-3,
+    #hotel-4:checked ~ .card #itinerary-hotel-4 {
+      display: flex;
+    }
+    .day-block {
+      display: block;
       flex: 0 0 min(85vw, 320px);
       width: min(85vw, 320px);
       max-width: min(85vw, 320px);
       scroll-snap-align: start;
       box-sizing: border-box;
     }
-    /* Single day: full-width stack */
-    #day-day1:checked ~ .card .hotel-itinerary,
-    #day-day2:checked ~ .card .hotel-itinerary,
-    #day-day3:checked ~ .card .hotel-itinerary {
-      flex-direction: column;
-      overflow-x: visible;
-      overflow-y: visible;
-      scroll-snap-type: none;
-      padding: 0;
-      margin: 0;
-      gap: 28px;
+    .hotel-itinerary::-webkit-scrollbar {
+      display: block;
+      height: 5px;
+      width: 5px;
     }
-    #day-day1:checked ~ .card .day-block,
-    #day-day2:checked ~ .card .day-block,
-    #day-day3:checked ~ .card .day-block {
-      flex: 1 1 auto;
-      width: 100%;
-      max-width: 100%;
+    .hotel-itinerary::-webkit-scrollbar-thumb {
+      background: rgba(245, 158, 11, 0.55);
+      border-radius: 999px;
+    }
+    .hotel-itinerary::-webkit-scrollbar-track {
+      background: rgba(241, 245, 249, 0.35);
+      border-radius: 999px;
     }
     .day-head {
       display: flex;
@@ -990,10 +973,8 @@
       min-height: 46px;
       -webkit-tap-highlight-color: rgba(230, 57, 70, 0.25);
     }
-    body.kid-mode #day-all:checked ~ .card .day-tab[for="day-all"],
-    body.kid-mode #day-day1:checked ~ .card .day-tab[for="day-day1"],
-    body.kid-mode #day-day2:checked ~ .card .day-tab[for="day-day2"],
-    body.kid-mode #day-day3:checked ~ .card .day-tab[for="day-day3"] {
+    body.kid-mode .day-tab.is-active,
+    body.kid-mode .day-tab[aria-current="true"] {
       background-color: #fff;
       color: #e63946;
       border: 4px solid transparent;
@@ -1655,26 +1636,14 @@
       background: rgba(241, 245, 249, 0.35);
       border-radius: 999px;
     }
-    #day-all:checked ~ .card .hotel-itinerary {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(245, 158, 11, 0.55) rgba(241, 245, 249, 0.4);
-    }
-    #day-all:checked ~ .card .hotel-itinerary::-webkit-scrollbar {
-      display: block;
-      height: 5px;
-    }
-    #day-all:checked ~ .card .hotel-itinerary::-webkit-scrollbar-thumb {
-      background: rgba(245, 158, 11, 0.55);
-      border-radius: 999px;
-    }
     body.kid-mode .hotel-grid,
     body.kid-mode .tabs,
-    body.kid-mode #day-all:checked ~ .card .hotel-itinerary {
+    body.kid-mode .hotel-itinerary {
       scrollbar-color: rgba(230, 57, 70, 0.5) rgba(255, 214, 10, 0.18);
     }
     body.kid-mode .hotel-grid::-webkit-scrollbar-thumb,
     body.kid-mode .tabs::-webkit-scrollbar-thumb,
-    body.kid-mode #day-all:checked ~ .card .hotel-itinerary::-webkit-scrollbar-thumb {
+    body.kid-mode .hotel-itinerary::-webkit-scrollbar-thumb {
       background: rgba(230, 57, 70, 0.5);
     }
     body.kid-mode .hotel-grid::-webkit-scrollbar-track,
@@ -1989,11 +1958,6 @@
     <input type="radio" name="hotel" id="hotel-2" class="sr-only" value="2">
     <input type="radio" name="hotel" id="hotel-3" class="sr-only" value="3">
     <input type="radio" name="hotel" id="hotel-4" class="sr-only" value="4">
-    <input type="radio" name="day" id="day-all" class="sr-only" value="all" checked>
-    <input type="radio" name="day" id="day-day1" class="sr-only" value="day1">
-    <input type="radio" name="day" id="day-day2" class="sr-only" value="day2">
-    <input type="radio" name="day" id="day-day3" class="sr-only" value="day3">
-
     <section class="card">
       <div class="card-head">
         <div>
@@ -2089,11 +2053,10 @@
 <span class="sub-h sub-h4">愉景灣酒店 × 迪士尼 · 海灣景觀 · 靜養＋迪士尼混合</span>
           </p>
         </div>
-        <div class="tabs" role="tablist" aria-label="日子篩選">
-          <label for="day-all" class="day-tab" id="tab-all">全部</label>
-          <label for="day-day1" class="day-tab" id="tab-day1">Day 1</label>
-          <label for="day-day2" class="day-tab" id="tab-day2">Day 2</label>
-          <label for="day-day3" class="day-tab" id="tab-day3">Day 3</label>
+        <div class="tabs" role="navigation" aria-label="日子指示">
+          <button type="button" class="day-tab is-active" data-day="day1" id="tab-day1" aria-current="true">Day 1</button>
+          <button type="button" class="day-tab" data-day="day2" id="tab-day2">Day 2</button>
+          <button type="button" class="day-tab" data-day="day3" id="tab-day3">Day 3</button>
         </div>
       </div>
       <div id="itinerary-root">
@@ -2235,7 +2198,7 @@
       </div>
     </section>
 
-    <p class="footer">家庭內部企劃 · 2026 聖誕 · 選擇會存喺本機瀏覽器（v5.7 · scroll-fix · day h-scroll + doodle BG parallax · WhatsApp 可用）</p>
+    <p class="footer">家庭內部企劃 · 2026 聖誕 · 選擇會存喺本機瀏覽器（v5.8 · day-indicators · h-scroll all days · WhatsApp 可用）</p>
   </main>
 
   <script>
@@ -2352,6 +2315,111 @@
         for (var i = 0; i < strips.length; i++) bindHScrollStrip(strips[i]);
       }
 
+      /* Day indicators: scroll-spy + tap-to-scroll (no filter/hide) */
+      var dayIndicatorSyncing = false;
+
+      function getVisibleItinerary() {
+        var hotels = document.querySelectorAll('input[name="hotel"]');
+        for (var i = 0; i < hotels.length; i++) {
+          if (hotels[i].checked) {
+            return document.getElementById('itinerary-hotel-' + hotels[i].value);
+          }
+        }
+        return document.getElementById('itinerary-hotel-1');
+      }
+
+      function setActiveDayIndicator(day) {
+        if (!day) day = 'day1';
+        var tabs = document.querySelectorAll('.day-tab[data-day]');
+        for (var i = 0; i < tabs.length; i++) {
+          var on = tabs[i].getAttribute('data-day') === day;
+          if (on) {
+            tabs[i].classList.add('is-active');
+            tabs[i].setAttribute('aria-current', 'true');
+          } else {
+            tabs[i].classList.remove('is-active');
+            tabs[i].removeAttribute('aria-current');
+          }
+        }
+      }
+
+      function syncDayFromScroll(strip) {
+        if (!strip || dayIndicatorSyncing) return;
+        var blocks = strip.querySelectorAll('.day-block');
+        if (!blocks.length) return;
+        var sl = strip.scrollLeft;
+        var best = blocks[0].getAttribute('data-day') || 'day1';
+        var bestDist = Infinity;
+        for (var i = 0; i < blocks.length; i++) {
+          var dist = Math.abs(blocks[i].offsetLeft - sl);
+          if (dist < bestDist) {
+            bestDist = dist;
+            best = blocks[i].getAttribute('data-day') || best;
+          }
+        }
+        setActiveDayIndicator(best);
+      }
+
+      function scrollToDay(day) {
+        var strip = getVisibleItinerary();
+        if (!strip || !day) return;
+        var block = strip.querySelector('.day-block[data-day="' + day + '"]');
+        if (!block) return;
+        dayIndicatorSyncing = true;
+        setActiveDayIndicator(day);
+        var left = block.offsetLeft;
+        try {
+          if (typeof strip.scrollTo === 'function') {
+            strip.scrollTo({ left: left, behavior: 'smooth' });
+          } else {
+            strip.scrollLeft = left;
+          }
+        } catch (e) {
+          strip.scrollLeft = left;
+        }
+        window.setTimeout(function () { dayIndicatorSyncing = false; }, 420);
+      }
+
+      function initDayIndicators() {
+        var tabs = document.querySelectorAll('.day-tab[data-day]');
+        for (var t = 0; t < tabs.length; t++) {
+          (function (tab) {
+            bindTap(tab, function () {
+              scrollToDay(tab.getAttribute('data-day'));
+            });
+          })(tabs[t]);
+        }
+        var strips = document.querySelectorAll('.hotel-itinerary');
+        for (var s = 0; s < strips.length; s++) {
+          (function (strip) {
+            var ticking = false;
+            strip.addEventListener('scroll', function () {
+              if (ticking) return;
+              ticking = true;
+              requestAnimationFrame(function () {
+                ticking = false;
+                if (strip === getVisibleItinerary()) syncDayFromScroll(strip);
+              });
+            }, { passive: true });
+          })(strips[s]);
+        }
+        var hotelRadios = document.querySelectorAll('input[name="hotel"]');
+        for (var h = 0; h < hotelRadios.length; h++) {
+          hotelRadios[h].addEventListener('change', function () {
+            var strip = getVisibleItinerary();
+            if (strip) {
+              /* Keep indicator in sync with newly visible strip position */
+              window.requestAnimationFrame(function () {
+                syncDayFromScroll(strip);
+              });
+            }
+          });
+        }
+        setActiveDayIndicator('day1');
+        var vis = getVisibleItinerary();
+        if (vis) syncDayFromScroll(vis);
+      }
+
       function bindTap(el, handler) {
         if (!el) return;
         var touched = false;
@@ -2425,6 +2493,7 @@
         });
 
         bindAllHScrollStrips();
+        initDayIndicators();
         initParallax();
       }
 
