@@ -27,7 +27,7 @@
     html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
     body {
       margin: 0;
-      padding: 0 0 48px;
+      padding: 0 0 96px;
       color: var(--ink);
       background-color: var(--bg);
       background-image: radial-gradient(rgba(148, 163, 184, 0.18) 0.8px, transparent 0.8px);
@@ -119,12 +119,100 @@
       max-width: 40rem;
       margin-bottom: 12px;
     }
-    .hero-links { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-bottom: 22px; }
-    .hero-links a {
-      color: #fde68a;
-      font-size: 14px;
-      font-weight: 700;
-      text-underline-offset: 3px;
+    .nav-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(15, 23, 42, 0.28);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+    body.nav-open .nav-backdrop { opacity: 1; pointer-events: auto; }
+    .nav-fab {
+      position: fixed;
+      z-index: 10002;
+      right: max(16px, env(safe-area-inset-right, 0px));
+      bottom: max(16px, env(safe-area-inset-bottom, 0px));
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #0f172a;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.28);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-fab:focus-visible { outline: 3px solid #fbbf24; outline-offset: 3px; }
+    .nav-icon { width: 22px; height: 16px; position: relative; display: block; }
+    .nav-icon span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: currentColor;
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+    }
+    .nav-icon span:nth-child(1) { top: 0; }
+    .nav-icon span:nth-child(2) { top: 7px; }
+    .nav-icon span:nth-child(3) { top: 14px; }
+    body.nav-open .nav-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    body.nav-open .nav-icon span:nth-child(2) { opacity: 0; }
+    body.nav-open .nav-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-pop ul { list-style: none; margin: 0; padding: 0; }
+    .nav-pop {
+      position: fixed;
+      z-index: 10001;
+      right: max(16px, env(safe-area-inset-right, 0px));
+      bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+      width: min(280px, calc(100vw - 32px));
+      margin: 0;
+      padding: 8px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+      transform-origin: calc(100% - 28px) calc(100% + 28px);
+      transform: translateY(10px) scale(0.82);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.24s ease, visibility 0.32s;
+    }
+    body.nav-open .nav-pop {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .nav-pop a {
+      display: flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 15px;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    body.nav-open .nav-pop a {
+      animation: menu-item 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    body.nav-open .nav-pop li:nth-child(1) a { animation-delay: 0.04s; }
+    body.nav-open .nav-pop li:nth-child(2) a { animation-delay: 0.08s; }
+    body.nav-open .nav-pop li:nth-child(3) a { animation-delay: 0.12s; }
+    body.nav-open .nav-pop li:nth-child(4) a { animation-delay: 0.16s; }
+    body.nav-open .nav-pop li:nth-child(5) a { animation-delay: 0.2s; }
+    .nav-pop a:hover, .nav-pop a:focus-visible { background: var(--amber-bg); }
+    .nav-pop a:active { transform: scale(0.98); }
+    @keyframes menu-item {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
     }
     .principles {
       display: grid;
@@ -635,7 +723,7 @@
       }
     }
     @media print {
-      .mode-toggle, .filters, .swipe-hint, .skip-link { display: none !important; }
+      .mode-toggle, .filters, .swipe-hint, .skip-link, .nav-fab, .nav-pop, .nav-backdrop { display: none !important; }
       .zone[hidden] { display: block !important; }
       .day-stage { height: auto !important; overflow: visible !important; }
       .day-panel[hidden] { display: block !important; }
@@ -644,10 +732,10 @@
       .hero { box-shadow: none; }
     }
 
-    .filter-btn, .btn-reset, .mode-toggle, .hero-links a, .chk-item, .act, .rule {
+    .filter-btn, .btn-reset, .mode-toggle, .nav-fab, .chk-item, .act, .rule {
       transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
     }
-    .btn-reset:active, .filter-btn:active, .mode-toggle:active { transform: scale(0.97); }
+    .btn-reset:active, .filter-btn:active, .mode-toggle:active, .nav-fab:active { transform: scale(0.97); }
     .chk-item:active { transform: scale(0.995); }
     .chk-title { transition: color 0.2s ease; }
     .act:active { transform: translateY(1px); }
@@ -684,7 +772,9 @@
       -webkit-text-fill-color: #1d3557;
     }
     body.kid-mode .hero-lead { color: #5a4638; }
-    body.kid-mode .hero-links a { color: #9b2226; }
+    body.kid-mode .nav-fab { background: #e63946; color: #fff; }
+    body.kid-mode .nav-pop { background: #fffef9; }
+    body.kid-mode .nav-pop a:hover, body.kid-mode .nav-pop a:focus-visible { background: #fff4d6; }
     body.kid-mode .principle { background: #fffef9; border-color: rgba(232, 154, 60, 0.35); }
     body.kid-mode .principle-label { color: #b45309; }
     body.kid-mode .principle-title { color: #1d3557; }
@@ -698,24 +788,30 @@
 </head>
 <body>
   <a class="skip-link" href="#main">跳到內容</a>
+  <div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
+  <nav class="nav-pop" id="nav-pop" aria-label="本頁章節" aria-hidden="true">
+    <ul>
+      <li><a href="#notes">出發前記住</a></li>
+      <li><a href="#days">三日點排</a></li>
+      <li><a href="#eats">餐廳</a></li>
+      <li><a href="#prep">準備清單</a></li>
+      <li><a href="index.html">返回四個方案比較</a></li>
+    </ul>
+  </nav>
+  <button type="button" class="nav-fab" id="nav-fab" aria-expanded="false" aria-controls="nav-pop" aria-label="開啟章節選單">
+    <span class="nav-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+  </button>
   <button type="button" class="mode-toggle" id="btn-kid-mode" aria-pressed="false" aria-label="切換到 Kid Mode">
     <span class="label-off">Kid Mode</span>
     <span class="label-on">大人模式</span>
   </button>
 
-  <header class="hero">
+  <header class="hero" id="top">
     <div class="hero-inner">
       <div class="pill">12月27–29日 · 星期日入住 · 酒店包早餐</div>
       <h1>愉景灣 × 迪士尼</h1>
       <p class="hero-sub">3日2夜放鬆之旅</p>
       <p class="hero-lead">全日休閒食買玩，節奏拖慢。用室內坐低、食熱嘢、睇騷，取代排隊同暴走。爸爸休養，細女用 BB 車瞓，大女先至有自己的時間。</p>
-      <nav class="hero-links" aria-label="本頁章節">
-        <a href="#notes">出發前記住</a>
-        <a href="#days">三日點排</a>
-        <a href="#eats">餐廳</a>
-        <a href="#prep">準備清單</a>
-        <a href="index.html">返回四個方案比較</a>
-      </nav>
       <div class="principles">
         <div class="principle">
           <div class="principle-label">爸爸</div>
@@ -1300,6 +1396,46 @@
 
       function boot() {
         try { applyKidMode(localStorage.getItem(KID_KEY) === '1'); } catch (e) { applyKidMode(false); }
+
+        var navBtn = document.getElementById('nav-fab');
+        var navPop = document.getElementById('nav-pop');
+        var navBackdrop = document.getElementById('nav-backdrop');
+        function setNav(open) {
+          document.body.classList.toggle('nav-open', open);
+          if (navBtn) {
+            navBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            navBtn.setAttribute('aria-label', open ? '關閉章節選單' : '開啟章節選單');
+          }
+          if (navPop) navPop.setAttribute('aria-hidden', open ? 'false' : 'true');
+          if (navBackdrop) navBackdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+          if (open && navPop) {
+            var first = navPop.querySelector('a');
+            if (first) window.setTimeout(function () { first.focus(); }, 60);
+          }
+        }
+        bindTap(navBtn, function () {
+          var open = !document.body.classList.contains('nav-open');
+          setNav(open);
+          if (!open && navBtn) navBtn.focus();
+        });
+        if (navBackdrop) {
+          navBackdrop.addEventListener('click', function () {
+            setNav(false);
+            if (navBtn) navBtn.focus();
+          });
+        }
+        if (navPop) {
+          var navLinks = navPop.querySelectorAll('a');
+          for (var n = 0; n < navLinks.length; n++) {
+            navLinks[n].addEventListener('click', function () { setNav(false); });
+          }
+        }
+        document.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Escape' && document.body.classList.contains('nav-open')) {
+            setNav(false);
+            if (navBtn) navBtn.focus();
+          }
+        });
 
         bindTap(document.getElementById('btn-kid-mode'), function () {
           var on = !document.body.classList.contains('kid-mode');
