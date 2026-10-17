@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#0f172a" id="meta-theme-color">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@400;700&family=Huninn&family=Iansui&family=LXGW+WenKai+TC:wght@400;700&display=swap" rel="stylesheet">
   <title>2026 聖誕畢業慶祝之旅 | 4大酒店專屬行程企劃</title>
   <style>
 
@@ -1689,6 +1692,18 @@
     .selected-chip { min-height: 36px; }
     .step-badge { vertical-align: middle; }
 
+    .mode-toggle { width: 92px; height: 48px; padding: 4px; display: inline-flex; align-items: center; justify-content: space-between; }
+    .mode-knob {
+      position: absolute; top: 4px; left: 4px; width: 40px; height: 40px; border-radius: 50%;
+      background: #0f172a; transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), background 0.28s ease;
+    }
+    body.kid-mode .mode-knob { transform: translateX(44px); background: #e63946; }
+    .mode-emoji { position: relative; z-index: 1; width: 40px; font-size: 22px; line-height: 40px; text-align: center; }
+    body.font-huninn { font-family: "Huninn", "PingFang TC", "Noto Sans TC", sans-serif; }
+    body.font-goround { font-family: "Chiron GoRound TC", "PingFang TC", "Noto Sans TC", sans-serif; }
+    body.font-wenkai { font-family: "LXGW WenKai TC", "PingFang TC", "Noto Sans TC", serif; }
+    body.font-iansui { font-family: "Iansui", "PingFang TC", "Noto Sans TC", cursive; }
+
     .day-tab, .btn-reset, .chk-item {
       transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
     }
@@ -1941,21 +1956,10 @@
 
 
 
-  <button type="button" class="mode-toggle" id="btn-kid-mode" aria-pressed="false" aria-label="切換到 Kid Mode" title="切換到 Kid Mode">
-    <span class="ico-kid" aria-hidden="true">
-      <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <path d="M8 20c1-6 4-10 8-12 2-1 5 0 6 3 1 2 0 5-2 7l-1 1" stroke="#e63946" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M9 19l-3 5 5-2" stroke="#e8c547" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="17" cy="9" r="2.2" fill="#ffd60a" stroke="#e89a3c" stroke-width="1.4"/>
-        <path d="M6 8c2-3 6-4 9-2" stroke="#4aa8d8" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </span>
-    <span class="ico-adult" aria-hidden="true">
-      <svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" fill="none">
-        <circle cx="14" cy="9" r="4.2" stroke="#1d3557" stroke-width="2.3"/>
-        <path d="M6.5 22.5c1.5-5 5-7.5 7.5-7.5s6 2.5 7.5 7.5" stroke="#1d3557" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </span>
+  <button type="button" class="mode-toggle" id="btn-kid-mode" aria-pressed="false" aria-label="切換到小朋友模式">
+    <span class="mode-knob" aria-hidden="true"></span>
+    <span class="mode-emoji adult" aria-hidden="true">👨</span>
+    <span class="mode-emoji kid" aria-hidden="true">🧸</span>
   </button>
 
 
@@ -2257,7 +2261,7 @@
         var btn = document.getElementById('btn-kid-mode');
         if (btn) {
           btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-          var lab = on ? '切換到大人模式' : '切換到 Kid Mode';
+          var lab = on ? '切換到大人模式' : '切換到小朋友模式';
           btn.setAttribute('aria-label', lab);
           btn.setAttribute('title', lab);
         }
@@ -2529,6 +2533,11 @@
 
         /* Kid Mode restore + toggle (addEventListener only) */
         applyKidMode(loadKidMode());
+        try {
+          var fontName = localStorage.getItem('staycation_font_v1') || '';
+          var fontClass = { huninn: 'font-huninn', goround: 'font-goround', wenkai: 'font-wenkai', iansui: 'font-iansui' };
+          if (fontClass[fontName]) document.body.classList.add(fontClass[fontName]);
+        } catch (e) {}
         bindTap(document.getElementById('btn-kid-mode'), function () {
           toggleKidMode();
           updateParallax(true);
