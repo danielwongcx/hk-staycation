@@ -321,6 +321,10 @@
     .tag-no { background: var(--no-bg); color: var(--no); }
     .act h4 { font-size: 17px; line-height: 1.35; margin-bottom: 4px; }
     .meta { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    #eats h3 { font-size: 16px; margin: 18px 0 2px; }
+    #eats > .meta { margin-bottom: 10px; }
+    #eats .act-grid { margin-top: 10px; }
+    #eats .tip { margin-top: 16px; }
     .act p { font-size: 14px; color: #334155; line-height: 1.65; }
     .fit {
       margin-top: 10px;
@@ -705,6 +709,7 @@
       <nav class="hero-links" aria-label="本頁章節">
         <a href="#notes">出發前記住</a>
         <a href="#days">三日點排</a>
+        <a href="#eats">餐廳</a>
         <a href="#prep">準備清單</a>
         <a href="index.html">返回四個方案比較</a>
       </nav>
@@ -921,6 +926,71 @@
           </ol>
         </article>
       </div>
+    </section>
+
+    <section class="card" id="eats" aria-labelledby="eats-title">
+      <div class="card-head">
+        <div>
+          <span class="step-badge">餐廳</span>
+          <h2 id="eats-title">熱食後備</h2>
+          <p class="hint">除咗牡丹軒，以下都有室內位，啱爸爸要熱食、唔生冷、坐得舒服，兩個女又食得。入座講明要室內。沙律伴碟可以走，飲品叫熱飲或室溫水。帶住保溫壺，大部分餐廳都肯斟熱水。</p>
+        </div>
+      </div>
+
+      <h3>愉景廣場 / D'Deck</h3>
+      <p class="meta">Day 1 晚餐，或者 Day 3 午餐 · 搭 4 或 9 號</p>
+      <div class="act-grid">
+        <article class="act">
+          <div class="act-kicker"><span class="tag tag-do">穩陣</span><span class="tag">兩個女</span></div>
+          <h4>PizzaExpress</h4>
+          <p class="meta">D'Deck 地下 G01B 及 G01C · 3164 1340</p>
+          <p>11 歲同 3 歲最容易食。爸爸叫熱湯、焗意粉、千層麵、焗菇，全部要全熟。平日 11:00–22:00，週末同公眾假期 10:00–22:00。全部室內位，唔怕吹風，座位闊落。</p>
+          <p class="fit">舖號以商戶指南為準，喺 D'Deck 地下，唔係 G21。</p>
+        </article>
+        <article class="act">
+          <div class="act-kicker"><span class="tag tag-no">先確認</span><span class="tag">各食各</span></div>
+          <h4>Zaks</h4>
+          <p class="meta">D'Deck 地下 G04 及 1 樓 · 去之前再問</p>
+          <p>餐牌原本好厚：大女可以叫西餐或漢堡，爸爸叫印尼炒飯、熱湯麵或全熟扒。但 OpenRice 標示已結業，2024 年 3 月亦有報道突然關門。如果重開，一定要講明室內座位，最好要梳化位。12 月唔好坐露天。</p>
+          <p class="fit">未確認重開之前，呢餐改去 PizzaExpress 或牡丹軒。</p>
+        </article>
+      </div>
+
+      <h3>愉景北 · 酒店樓下</h3>
+      <p class="meta">太攰、唔想再搭巴士的時候</p>
+      <div class="act-grid">
+        <article class="act">
+          <div class="act-kicker"><span class="tag tag-do">最暖胃</span><span class="tag">零交通</span></div>
+          <h4>越不同</h4>
+          <p class="meta">愉景北商場地下 G27 · 2338 8970</p>
+          <p>一碗熱湯河最啱休養。生牛河要講明全熟牛，或者改叫雞絲湯河。細女可以食熱春卷或其他熟食小食。大約 10:30–21:30。食完行兩步返房。</p>
+        </article>
+        <article class="act">
+          <div class="act-kicker"><span class="tag tag-opt">只叫單點</span><span class="tag">最靜</span></div>
+          <h4>海玥 Café bord de Mer</h4>
+          <p class="meta">酒店入面 · 唔使出門口</p>
+          <p>自助餐生冷多，呢度只叫散叫：熱湯麵、海南雞飯，或者熱意粉。環境最靜，服務亦最就手。唔好用自助櫃當正餐。</p>
+        </article>
+      </div>
+
+      <h3>迪士尼園內 · 28 號</h3>
+      <p class="meta">食飯就係休息站</p>
+      <div class="act-grid">
+        <article class="act">
+          <div class="act-kicker"><span class="tag tag-do">要訂位</span><span class="tag">中菜</span></div>
+          <h4>廣場飯店 Plaza Inn</h4>
+          <p class="meta">美國小鎮大街 · 美心主理</p>
+          <p>園內最適合休養人士的一間。有熱茶、點心、熱湯、炒粉麵，傳統酒樓座位，有冷氣同暖氣。12:30 這餐出發前大約一個月用 App 或電話訂，免卻爸爸企喺度等。</p>
+        </article>
+        <article class="act">
+          <div class="act-kicker"><span class="tag tag-opt">熱飯</span><span class="tag">座位多</span></div>
+          <h4>大冒險家餐廳</h4>
+          <p class="meta">迷離莊園旁邊 · Explorer's Club</p>
+          <p>半自助快餐，主打亞洲熟食：韓式人參雞湯飯、印尼炒飯、日式便當。座位區大，室內，通常唔使等太耐。沙律檔可以行過，淨係取熱湯熱飯。</p>
+        </article>
+      </div>
+
+      <p class="tip">爸爸療程後腸胃可能比較敏感。西餐或亞洲餐走沙律伴碟，飲品全部叫熱飲或室溫水。保溫壺入到餐廳，可以請佢哋斟滿熱水。</p>
     </section>
 
     <section class="card" id="prep" aria-labelledby="prep-title">
