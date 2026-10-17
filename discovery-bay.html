@@ -377,22 +377,16 @@
     .swipe-hint { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
 
     .day-stage {
+      position: relative;
       overflow: hidden;
-      transition: height 0.48s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .day-panel { display: block; }
+    .day-panel { display: block; width: 100%; }
     .day-panel[hidden] { display: none !important; }
-    .day-panel.is-active .tl {
-      animation: rise-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-    .day-panel.is-active .tl:nth-child(2) { animation-delay: 0.04s; }
-    .day-panel.is-active .tl:nth-child(3) { animation-delay: 0.08s; }
-    .day-panel.is-active .tl:nth-child(4) { animation-delay: 0.12s; }
-    .day-panel.is-active .tl:nth-child(5) { animation-delay: 0.16s; }
-    .day-panel.is-active .tl:nth-child(6) { animation-delay: 0.2s; }
-    @keyframes rise-in {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: none; }
+    .day-panel.is-sliding {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
     }
     .day-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; scroll-margin-top: 20px; }
     .card, section[id] { scroll-margin-top: 12px; }
@@ -786,7 +780,7 @@
         <div>
           <span class="step-badge">行程</span>
           <h2 id="days-title">3日2夜執行指南</h2>
-          <p class="hint" id="day-hint">27 號安頓，28 號全日迪士尼，29 號退房。撳日期，卡片會跟住嗰日變高。</p>
+          <p class="hint" id="day-hint">27 號安頓，28 號全日迪士尼，29 號退房。左右掃，行程會跟住手指滑走。</p>
         </div>
         <div class="tabs" role="tablist" aria-label="日子">
           <button type="button" class="day-tab" id="tab-day1" role="tab" data-day="day1" aria-selected="true" aria-controls="day1">27日</button>
@@ -1198,57 +1192,104 @@
         if (live) live.textContent = '而家係 ' + (DAY_LABEL[day] || day) + '。卡片跟住呢日嘅長度。';
       }
 
-      function showDay(day) {
-        var stage = document.getElementById('day-stage');
-        var next = document.getElementById(day);
-        if (!stage || !next) return;
-        var current = stage.querySelector('.day-panel.is-active');
-        if (current === next) return;
-        setActiveDay(day);
-        if (prefersReduce()) {
-          if (current) {
-            current.classList.remove('is-active');
-            current.hidden = true;
-          }
-          next.hidden = false;
-          next.classList.add('is-active');
-          stage.style.height = '';
-          return;
-        }
-        var token = ++dayAnimToken;
-        var from = stage.getBoundingClientRect().height;
-        stage.style.height = from + 'px';
-        stage.offsetHeight;
-        if (current) {
-          current.classList.remove('is-active');
-          current.hidden = true;
-        }
-        next.hidden = false;
-        next.classList.add('is-active');
-        var to = next.offsetHeight;
-        stage.offsetHeight;
-        stage.style.height = to + 'px';
-        var done = function (ev) {
-          if (ev && ev.propertyName && ev.propertyName !== 'height') return;
-          if (token !== dayAnimToken) return;
-          stage.style.height = '';
-          stage.removeEventListener('transitionend', done);
-        };
-        stage.addEventListener('transitionend', done);
-        window.setTimeout(function () {
-          if (token !== dayAnimToken) return;
-          stage.style.height = '';
-        }, 700);
+      var dayBusy = false;
+      var SLIDE = 'transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)';
+      var HEIGHT = 'height 0.42s cubic-bezier(0.22, 1, 0.36, 1)';
+
+      function activePanel() {
+        return document.querySelector('.day-panel.is-active');
       }
 
-      function stepDay(dir) {
-        var current = document.querySelector('.day-panel.is-active');
+      function neighborId(dir) {
+        var current = activePanel();
         var id = current ? current.getAttribute('data-day') : 'day1';
         var idx = DAY_ORDER.indexOf(id);
         if (idx < 0) idx = 0;
         var next = idx + dir;
-        if (next < 0 || next >= DAY_ORDER.length) return;
-        showDay(DAY_ORDER[next]);
+        if (next < 0 || next >= DAY_ORDER.length) return null;
+        return DAY_ORDER[next];
+      }
+
+      function clearSlide(el) {
+        if (!el) return;
+        el.classList.remove('is-sliding');
+        el.style.transition = '';
+        el.style.transform = '';
+      }
+
+      function park(el, x, animate) {
+        el.hidden = false;
+        el.classList.add('is-sliding');
+        el.style.transition = animate ? SLIDE : 'none';
+        el.style.transform = 'translate3d(' + x + 'px,0,0)';
+      }
+
+      function settle(current, next, stage) {
+        if (current && current !== next) {
+          current.classList.remove('is-active');
+          current.hidden = true;
+          clearSlide(current);
+        }
+        if (next) {
+          next.hidden = false;
+          next.classList.add('is-active');
+          clearSlide(next);
+        }
+        if (stage) {
+          stage.style.transition = '';
+          stage.style.height = '';
+        }
+        dayBusy = false;
+      }
+
+      function showDay(day, dir) {
+        var stage = document.getElementById('day-stage');
+        var next = document.getElementById(day);
+        if (!stage || !next || dayBusy) return;
+        var current = activePanel();
+        if (current === next) return;
+        var fromIdx = current ? DAY_ORDER.indexOf(current.getAttribute('data-day')) : 0;
+        var toIdx = DAY_ORDER.indexOf(day);
+        if (dir !== 1 && dir !== -1) dir = toIdx > fromIdx ? 1 : -1;
+        setActiveDay(day);
+        if (prefersReduce() || !current) {
+          settle(current, next, stage);
+          return;
+        }
+        dayBusy = true;
+        var token = ++dayAnimToken;
+        var width = stage.clientWidth || next.offsetWidth || 320;
+        var fromH = stage.getBoundingClientRect().height;
+        var inX = dir > 0 ? width : -width;
+        var outX = dir > 0 ? -width : width;
+        stage.style.transition = 'none';
+        stage.style.height = fromH + 'px';
+        park(current, 0, false);
+        park(next, inX, false);
+        var toH = next.offsetHeight;
+        stage.offsetHeight;
+        stage.style.transition = HEIGHT;
+        current.style.transition = SLIDE;
+        next.style.transition = SLIDE;
+        current.style.transform = 'translate3d(' + outX + 'px,0,0)';
+        next.style.transform = 'translate3d(0,0,0)';
+        stage.style.height = toH + 'px';
+        var finished = false;
+        function done(ev) {
+          if (ev && ev.propertyName && ev.propertyName !== 'transform') return;
+          if (token !== dayAnimToken || finished) return;
+          finished = true;
+          next.removeEventListener('transitionend', done);
+          settle(current, next, stage);
+        }
+        next.addEventListener('transitionend', done);
+        window.setTimeout(done, 520);
+      }
+
+      function stepDay(dir) {
+        var id = neighborId(dir);
+        if (!id) return;
+        showDay(id, dir);
       }
 
       function saveCheck(id) {
@@ -1286,22 +1327,126 @@
 
         var stage = document.getElementById('day-stage');
         if (stage) {
-          var sx = 0;
-          var sy = 0;
+          var drag = null;
+          function endDrag(dx) {
+            if (!drag || drag.locked !== 'h') { drag = null; return; }
+            var width = drag.width;
+            var dir = dx < 0 ? 1 : -1;
+            var go = drag.neighbor && (dx < 0 ? -dx : dx) > width * 0.22;
+            stage.style.transition = HEIGHT;
+            drag.current.style.transition = SLIDE;
+            if (drag.neighbor) drag.neighbor.style.transition = SLIDE;
+            var token = ++dayAnimToken;
+            dayBusy = true;
+            if (go) {
+              var outX = dir > 0 ? -width : width;
+              drag.current.style.transform = 'translate3d(' + outX + 'px,0,0)';
+              drag.neighbor.style.transform = 'translate3d(0,0,0)';
+              stage.style.height = drag.neighborH + 'px';
+              setActiveDay(drag.neighbor.getAttribute('data-day'));
+              var leaving = drag.current;
+              var arriving = drag.neighbor;
+              var finished = false;
+              function done(ev) {
+                if (ev && ev.propertyName && ev.propertyName !== 'transform') return;
+                if (token !== dayAnimToken || finished) return;
+                finished = true;
+                arriving.removeEventListener('transitionend', done);
+                settle(leaving, arriving, stage);
+              }
+              arriving.addEventListener('transitionend', done);
+              window.setTimeout(done, 520);
+            } else {
+              drag.current.style.transform = 'translate3d(0,0,0)';
+              if (drag.neighbor) {
+                var back = dx < 0 ? width : -width;
+                drag.neighbor.style.transform = 'translate3d(' + back + 'px,0,0)';
+              }
+              stage.style.height = drag.fromH + 'px';
+              var backNeighbor = drag.neighbor;
+              var backCurrent = drag.current;
+              var finishedBack = false;
+              function doneBack(ev) {
+                if (ev && ev.propertyName && ev.propertyName !== 'transform') return;
+                if (token !== dayAnimToken || finishedBack) return;
+                finishedBack = true;
+                backCurrent.removeEventListener('transitionend', doneBack);
+                if (backNeighbor) {
+                  backNeighbor.hidden = true;
+                  clearSlide(backNeighbor);
+                }
+                clearSlide(backCurrent);
+                stage.style.transition = '';
+                stage.style.height = '';
+                dayBusy = false;
+              }
+              backCurrent.addEventListener('transitionend', doneBack);
+              window.setTimeout(doneBack, 520);
+            }
+            drag = null;
+          }
           stage.addEventListener('touchstart', function (ev) {
-            if (!ev.touches || ev.touches.length !== 1) return;
-            sx = ev.touches[0].clientX;
-            sy = ev.touches[0].clientY;
+            if (dayBusy || !ev.touches || ev.touches.length !== 1) return;
+            drag = {
+              x: ev.touches[0].clientX,
+              y: ev.touches[0].clientY,
+              last: 0,
+              locked: null,
+              current: null,
+              neighbor: null,
+              neighborH: 0,
+              width: stage.clientWidth,
+              fromH: 0
+            };
           }, { passive: true });
-          stage.addEventListener('touchend', function (ev) {
-            if (!ev.changedTouches || !ev.changedTouches.length) return;
-            var dx = ev.changedTouches[0].clientX - sx;
-            var dy = ev.changedTouches[0].clientY - sy;
+          stage.addEventListener('touchmove', function (ev) {
+            if (!drag || !ev.touches || ev.touches.length !== 1) return;
+            var dx = ev.touches[0].clientX - drag.x;
+            var dy = ev.touches[0].clientY - drag.y;
             var adx = dx < 0 ? -dx : dx;
             var ady = dy < 0 ? -dy : dy;
-            if (adx < 48 || adx < ady * 1.3) return;
-            stepDay(dx < 0 ? 1 : -1);
-          }, { passive: true });
+            if (!drag.locked) {
+              if (ady > 8 && ady > adx * 1.2) { drag.locked = 'v'; return; }
+              if (adx > 8 && adx > ady * 1.2) {
+                drag.locked = 'h';
+                drag.current = activePanel();
+                drag.fromH = stage.getBoundingClientRect().height;
+                stage.style.transition = 'none';
+                stage.style.height = drag.fromH + 'px';
+                park(drag.current, 0, false);
+              } else return;
+            }
+            if (drag.locked !== 'h') return;
+            ev.preventDefault();
+            drag.last = dx;
+            var dir = dx < 0 ? 1 : -1;
+            var id = neighborId(dir);
+            if (!id) {
+              if (drag.neighbor) {
+                drag.neighbor.hidden = true;
+                clearSlide(drag.neighbor);
+                drag.neighbor = null;
+              }
+              park(drag.current, dx * 0.28, false);
+              return;
+            }
+            if (!drag.neighbor || drag.neighbor.id !== id) {
+              if (drag.neighbor) {
+                drag.neighbor.hidden = true;
+                clearSlide(drag.neighbor);
+              }
+              drag.neighbor = document.getElementById(id);
+              park(drag.neighbor, dir > 0 ? drag.width : -drag.width, false);
+              drag.neighborH = drag.neighbor.offsetHeight;
+            }
+            var neighborX = dx + (dir > 0 ? drag.width : -drag.width);
+            park(drag.current, dx, false);
+            park(drag.neighbor, neighborX, false);
+            var progress = Math.min(1, adx / drag.width);
+            stage.style.height = (drag.fromH + (drag.neighborH - drag.fromH) * progress) + 'px';
+          }, { passive: false });
+          stage.addEventListener('touchend', function () { endDrag(drag ? drag.last : 0); }, { passive: true });
+          stage.addEventListener('touchcancel', function () { endDrag(0); }, { passive: true });
         }
         bindHScrollStrip(document.querySelector('.filters'));
 
