@@ -358,39 +358,41 @@
     }
     .tabs::-webkit-scrollbar { display: none; }
     .day-tab {
-      flex: 0 0 auto;
-      min-width: 84px;
+      flex: 1 1 0;
+      min-width: 72px;
       min-height: 44px;
       padding: 10px 14px;
       border-radius: 8px;
       font-size: 14px;
       font-weight: 800;
       color: var(--muted);
+      transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
     }
-    .day-tab[aria-current="true"] {
+    .day-tab[aria-selected="true"] {
       background: #fff;
       color: var(--ink);
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
     }
+    .day-tab:active { transform: scale(0.97); }
     .swipe-hint { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
 
-    .itinerary {
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x mandatory;
-      touch-action: pan-x pan-y;
-      padding: 8px 2px 12px;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(245, 158, 11, 0.55) transparent;
+    .day-stage {
+      overflow: hidden;
+      transition: height 0.48s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .day-block {
-      flex: 0 0 calc(100% - 28px);
-      width: calc(100% - 28px);
-      max-width: 420px;
-      scroll-snap-align: start;
+    .day-panel { display: block; }
+    .day-panel[hidden] { display: none !important; }
+    .day-panel.is-active .tl {
+      animation: rise-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .day-panel.is-active .tl:nth-child(2) { animation-delay: 0.04s; }
+    .day-panel.is-active .tl:nth-child(3) { animation-delay: 0.08s; }
+    .day-panel.is-active .tl:nth-child(4) { animation-delay: 0.12s; }
+    .day-panel.is-active .tl:nth-child(5) { animation-delay: 0.16s; }
+    .day-panel.is-active .tl:nth-child(6) { animation-delay: 0.2s; }
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
     }
     .day-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; scroll-margin-top: 20px; }
     .card, section[id] { scroll-margin-top: 12px; }
@@ -630,26 +632,33 @@
         border-radius: 12px;
         background: #fff;
       }
-      .swipe-hint { display: none; }
-    }
-    @media (min-width: 960px) {
-      .itinerary {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        overflow: visible;
-      }
-      .day-block { width: auto; max-width: none; flex: 1 1 auto; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
     }
     @media print {
       .mode-toggle, .filters, .swipe-hint, .skip-link { display: none !important; }
       .zone[hidden] { display: block !important; }
-      .itinerary { display: block !important; overflow: visible !important; }
-      .day-block { width: auto !important; max-width: none !important; margin-bottom: 16px; }
+      .day-stage { height: auto !important; overflow: visible !important; }
+      .day-panel[hidden] { display: block !important; }
+      .day-panel { margin-bottom: 16px; }
       body { background: #fff; padding-bottom: 0; }
       .hero { box-shadow: none; }
+    }
+
+    .filter-btn, .btn-reset, .mode-toggle, .hero-links a, .chk-item, .act, .rule {
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    }
+    .btn-reset:active, .filter-btn:active, .mode-toggle:active { transform: scale(0.97); }
+    .chk-item:active { transform: scale(0.995); }
+    .chk-title { transition: color 0.2s ease; }
+    .act:active { transform: translateY(1px); }
+    body, .hero, .card, .principle, .pill {
+      transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
     }
 
     body.kid-mode {
@@ -777,18 +786,18 @@
         <div>
           <span class="step-badge">行程</span>
           <h2 id="days-title">3日2夜執行指南</h2>
-          <p class="hint">27 號星期日安頓，28 號星期一全日迪士尼，29 號星期二退房。電話可以左右滑。</p>
+          <p class="hint" id="day-hint">27 號安頓，28 號全日迪士尼，29 號退房。撳日期，卡片會跟住嗰日變高。</p>
         </div>
-        <div class="tabs" role="navigation" aria-label="日子">
-          <button type="button" class="day-tab" id="tab-day1" data-day="day1" aria-current="true">27日</button>
-          <button type="button" class="day-tab" id="tab-day2" data-day="day2">28日</button>
-          <button type="button" class="day-tab" id="tab-day3" data-day="day3">29日</button>
+        <div class="tabs" role="tablist" aria-label="日子">
+          <button type="button" class="day-tab" id="tab-day1" role="tab" data-day="day1" aria-selected="true" aria-controls="day1">27日</button>
+          <button type="button" class="day-tab" id="tab-day2" role="tab" data-day="day2" aria-selected="false" aria-controls="day2">28日</button>
+          <button type="button" class="day-tab" id="tab-day3" role="tab" data-day="day3" aria-selected="false" aria-controls="day3">29日</button>
         </div>
       </div>
-      <p class="swipe-hint">左右滑睇三日</p>
-      <div class="itinerary" id="itinerary">
-        <article class="day-block" id="day1" data-day="day1">
-          <div class="day-head"><span class="day-pill d1">12月27日</span><h3>星期日 · 輕鬆熱身</h3></div>
+      <p class="swipe-hint" id="day-live" aria-live="polite">而家係 27 日。卡片跟住呢日嘅長度。</p>
+      <div class="day-stage" id="day-stage">
+        <section class="day-panel is-active" id="day1" data-day="day1" aria-labelledby="day1-label">
+          <div class="day-head"><span class="day-pill d1">12月27日</span><h3 id="day1-label">星期日 · 輕鬆熱身</h3></div>
           <ol class="timeline">
             <li class="tl">
               <div class="tl-time">14:00–15:30</div>
@@ -823,10 +832,10 @@
               </div>
             </li>
           </ol>
-        </article>
+        </section>
 
-        <article class="day-block" id="day2" data-day="day2">
-          <div class="day-head"><span class="day-pill d2">12月28日</span><h3>星期一 · 低耗能全日</h3></div>
+        <section class="day-panel" id="day2" data-day="day2" aria-labelledby="day2-label" hidden>
+          <div class="day-head"><span class="day-pill d2">12月28日</span><h3 id="day2-label">星期一 · 低耗能全日</h3></div>
           <p class="hint">核心係 BB 車做流動睡床，用食飯時間做休息站。</p>
           <ol class="timeline">
             <li class="tl">
@@ -886,10 +895,10 @@
               </div>
             </li>
           </ol>
-        </article>
+        </section>
 
-        <article class="day-block" id="day3" data-day="day3">
-          <div class="day-head"><span class="day-pill d3">12月29日</span><h3>星期二 · 退房，廣場慢活</h3></div>
+        <section class="day-panel" id="day3" data-day="day3" aria-labelledby="day3-label" hidden>
+          <div class="day-head"><span class="day-pill d3">12月29日</span><h3 id="day3-label">星期二 · 退房，廣場慢活</h3></div>
           <ol class="timeline">
             <li class="tl">
               <div class="tl-time">09:00–11:00</div>
@@ -924,7 +933,7 @@
               </div>
             </li>
           </ol>
-        </article>
+        </section>
       </div>
     </section>
 
@@ -1169,52 +1178,77 @@
         if (status) status.textContent = '而家顯示' + label + '，' + shown + ' 項';
       }
 
+      var DAY_ORDER = ['day1', 'day2', 'day3'];
+      var DAY_LABEL = { day1: '27 日', day2: '28 日', day3: '29 日' };
+      var dayAnimToken = 0;
+
+      function prefersReduce() {
+        try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
+      }
+
       function setActiveDay(day) {
         var tabs = document.querySelectorAll('.day-tab');
         for (var i = 0; i < tabs.length; i++) {
           var on = tabs[i].getAttribute('data-day') === day;
+          tabs[i].setAttribute('aria-selected', on ? 'true' : 'false');
           if (on) tabs[i].setAttribute('aria-current', 'true');
           else tabs[i].removeAttribute('aria-current');
         }
+        var live = document.getElementById('day-live');
+        if (live) live.textContent = '而家係 ' + (DAY_LABEL[day] || day) + '。卡片跟住呢日嘅長度。';
       }
 
-      var daySyncing = false;
-      function scrollToDay(day) {
-        var strip = document.getElementById('itinerary');
-        var block = document.getElementById(day);
-        if (!strip || !block) return;
-        daySyncing = true;
+      function showDay(day) {
+        var stage = document.getElementById('day-stage');
+        var next = document.getElementById(day);
+        if (!stage || !next) return;
+        var current = stage.querySelector('.day-panel.is-active');
+        if (current === next) return;
         setActiveDay(day);
-        var wide = false;
-        try { wide = window.matchMedia('(min-width: 960px)').matches; } catch (e) {}
-        var reduce = false;
-        try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
-        if (wide) {
-          var head = block.querySelector('.day-head') || block;
-          head.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-        } else if (typeof strip.scrollTo === 'function') {
-          strip.scrollTo({ left: block.offsetLeft, behavior: reduce ? 'auto' : 'smooth' });
-        } else {
-          strip.scrollLeft = block.offsetLeft;
+        if (prefersReduce()) {
+          if (current) {
+            current.classList.remove('is-active');
+            current.hidden = true;
+          }
+          next.hidden = false;
+          next.classList.add('is-active');
+          stage.style.height = '';
+          return;
         }
-        window.setTimeout(function () { daySyncing = false; }, 450);
+        var token = ++dayAnimToken;
+        var from = stage.getBoundingClientRect().height;
+        stage.style.height = from + 'px';
+        stage.offsetHeight;
+        if (current) {
+          current.classList.remove('is-active');
+          current.hidden = true;
+        }
+        next.hidden = false;
+        next.classList.add('is-active');
+        var to = next.offsetHeight;
+        stage.offsetHeight;
+        stage.style.height = to + 'px';
+        var done = function (ev) {
+          if (ev && ev.propertyName && ev.propertyName !== 'height') return;
+          if (token !== dayAnimToken) return;
+          stage.style.height = '';
+          stage.removeEventListener('transitionend', done);
+        };
+        stage.addEventListener('transitionend', done);
+        window.setTimeout(function () {
+          if (token !== dayAnimToken) return;
+          stage.style.height = '';
+        }, 700);
       }
 
-      function syncDayFromScroll() {
-        if (daySyncing) return;
-        var strip = document.getElementById('itinerary');
-        if (!strip) return;
-        var blocks = strip.querySelectorAll('.day-block');
-        var best = 'day1';
-        var bestDist = Infinity;
-        for (var i = 0; i < blocks.length; i++) {
-          var dist = Math.abs(blocks[i].offsetLeft - strip.scrollLeft);
-          if (dist < bestDist) {
-            bestDist = dist;
-            best = blocks[i].getAttribute('data-day') || best;
-          }
-        }
-        setActiveDay(best);
+      function stepDay(dir) {
+        var current = document.querySelector('.day-panel.is-active');
+        var id = current ? current.getAttribute('data-day') : 'day1';
+        var idx = DAY_ORDER.indexOf(id);
+        if (idx < 0) idx = 0;
+        var next = idx + dir;
+        if (next < 0 || next >= DAY_ORDER.length) return;
+        showDay(DAY_ORDER[next]);
       }
 
       function saveCheck(id) {
@@ -1242,22 +1276,32 @@
         var tabs = document.querySelectorAll('.day-tab');
         for (var t = 0; t < tabs.length; t++) {
           (function (tab) {
-            bindTap(tab, function () { scrollToDay(tab.getAttribute('data-day')); });
+            bindTap(tab, function () { showDay(tab.getAttribute('data-day')); });
+            tab.addEventListener('keydown', function (ev) {
+              if (ev.key === 'ArrowRight') { stepDay(1); ev.preventDefault(); }
+              else if (ev.key === 'ArrowLeft') { stepDay(-1); ev.preventDefault(); }
+            });
           })(tabs[t]);
         }
 
-        var strip = document.getElementById('itinerary');
-        if (strip) {
-          var ticking = false;
-          strip.addEventListener('scroll', function () {
-            if (ticking) return;
-            ticking = true;
-            requestAnimationFrame(function () {
-              ticking = false;
-              syncDayFromScroll();
-            });
+        var stage = document.getElementById('day-stage');
+        if (stage) {
+          var sx = 0;
+          var sy = 0;
+          stage.addEventListener('touchstart', function (ev) {
+            if (!ev.touches || ev.touches.length !== 1) return;
+            sx = ev.touches[0].clientX;
+            sy = ev.touches[0].clientY;
           }, { passive: true });
-          bindHScrollStrip(strip);
+          stage.addEventListener('touchend', function (ev) {
+            if (!ev.changedTouches || !ev.changedTouches.length) return;
+            var dx = ev.changedTouches[0].clientX - sx;
+            var dy = ev.changedTouches[0].clientY - sy;
+            var adx = dx < 0 ? -dx : dx;
+            var ady = dy < 0 ? -dy : dy;
+            if (adx < 48 || adx < ady * 1.3) return;
+            stepDay(dx < 0 ? 1 : -1);
+          }, { passive: true });
         }
         bindHScrollStrip(document.querySelector('.filters'));
 

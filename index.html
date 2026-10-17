@@ -1689,9 +1689,16 @@
     .selected-chip { min-height: 36px; }
     .step-badge { vertical-align: middle; }
 
+    .day-tab, .btn-reset, .chk-item {
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    }
+    .day-tab:active, .btn-reset:active { transform: scale(0.97); }
+    .chk-title { transition: color 0.2s ease; }
+
     @media (prefers-reduced-motion: reduce) {
       .hotel-card:active { transform: none; }
-      .mode-toggle:active { transform: none; }
+      .mode-toggle:active, .day-tab:active, .btn-reset:active { transform: none; }
+      .day-tab, .btn-reset, .chk-item, .chk-title, .hotel-card { transition: none; }
       body.kid-mode .hotel-card:hover,
       body.kid-mode .chk-item:hover,
       body.kid-mode .btn-reset:hover,
