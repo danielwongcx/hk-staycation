@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>2026 聖誕畢業慶祝之旅 | 4大酒店專屬行程企劃</title>
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      padding: 0 0 64px;
+      color: #1e293b;
+      background-color: #F1F5F9;
+      background-image: radial-gradient(rgba(148, 163, 184, 0.18) 0.8px, transparent 0.8px);
+      background-size: 28px 28px;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input { font-family: inherit; }
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(245,158,11,0.25);
+    }
+    h1, h2, h3, p, ul { margin: 0; }
+
+    .wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+    .wrap-wide { max-width: 960px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 2; margin-top: -40px; }
+
+    /* Visually hidden radios — still activatable via label */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(145deg, #0f172a 0%, #1e293b 45%, #1e1b4b 100%);
+      color: #fff;
+      padding: 48px 16px 80px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.35);
+    }
+    .hero-inner { max-width: 960px; margin: 0 auto; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      color: #fcd34d;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    .hero-sub {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 14px;
+      background: linear-gradient(90deg, #fcd34d, #fef08a, #fbbf24);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-lead {
+      color: #cbd5e1;
+      font-size: 15px;
+      line-height: 1.65;
+      max-width: 40rem;
+      margin-bottom: 10px;
+    }
+    .path-line {
+      color: #fde68a;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 28px;
+    }
+    .principles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .principle {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .principle-label {
+      color: #fbbf24;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .principle-title {
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      margin-top: 2px;
+    }
+    .principle-desc {
+      color: #cbd5e1;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    /* Cards */
+    .card {
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      padding: 20px 16px;
+      margin-bottom: 28px;
+    }
+    .card-head {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .step-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #d97706;
+      background: #fffbeb;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .card-head h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 8px;
+    }
+    .card-head .hint {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    .selected-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #92400e;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 1px 3px rgba(245, 158, 11, 0.12);
+    }
+    .selected-chip .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #f59e0b;
+      flex-shrink: 0;
+    }
+    .chip-h, .sub-h { display: none; }
+
+    /* Hotel cards */
+    .hotel-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .hotel-card {
+      position: relative;
+      text-align: left;
+      width: 100%;
+      padding: 18px 16px;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 200px;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(245,158,11,0.25);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .hotel-card:focus-visible {
+      outline: 2px solid #f59e0b;
+      outline-offset: 3px;
+    }
+    .hotel-badge {
+      position: absolute;
+      top: -12px;
+      left: 14px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      background: #f59e0b;
+      color: #fff;
+      box-shadow: 0 1px 4px rgba(245, 158, 11, 0.35);
+    }
+    .hotel-scheme {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+    .hotel-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.35;
+    }
+    .hotel-room {
+      font-size: 13px;
+      color: #475569;
+      margin-top: 4px;
+    }
+    .hotel-inline-tag {
+      display: inline-flex;
+      margin-top: 6px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .hotel-list {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .hotel-list li {
+      font-size: 13px;
+      color: #475569;
+      padding: 2px 0;
+    }
+    .hotel-note {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.55;
+    }
+    .hotel-status {
+      margin-top: 14px;
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+      background: #f1f5f9;
+      color: #334155;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hotel-status .st-on { display: none; }
+    .hotel-status .st-off { display: block; }
+
+    /* Selected hotel via :checked (radios are siblings before .card) */
+    #hotel-1:checked ~ .card .hotel-card[for="hotel-1"],
+    #hotel-2:checked ~ .card .hotel-card[for="hotel-2"],
+    #hotel-3:checked ~ .card .hotel-card[for="hotel-3"],
+    #hotel-4:checked ~ .card .hotel-card[for="hotel-4"] {
+      border: 2px solid #f59e0b;
+      background: rgba(255, 251, 235, 0.55);
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.18);
+    }
+    #hotel-1:checked ~ .card .hotel-card[for="hotel-1"] .hotel-scheme,
+    #hotel-2:checked ~ .card .hotel-card[for="hotel-2"] .hotel-scheme,
+    #hotel-3:checked ~ .card .hotel-card[for="hotel-3"] .hotel-scheme,
+    #hotel-4:checked ~ .card .hotel-card[for="hotel-4"] .hotel-scheme {
+      color: #b45309;
+    }
+    #hotel-1:checked ~ .card .hotel-card[for="hotel-1"] .hotel-status,
+    #hotel-2:checked ~ .card .hotel-card[for="hotel-2"] .hotel-status,
+    #hotel-3:checked ~ .card .hotel-card[for="hotel-3"] .hotel-status,
+    #hotel-4:checked ~ .card .hotel-card[for="hotel-4"] .hotel-status {
+      background: #f59e0b;
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(245, 158, 11, 0.3);
+    }
+    #hotel-1:checked ~ .card .hotel-card[for="hotel-1"] .st-on,
+    #hotel-2:checked ~ .card .hotel-card[for="hotel-2"] .st-on,
+    #hotel-3:checked ~ .card .hotel-card[for="hotel-3"] .st-on,
+    #hotel-4:checked ~ .card .hotel-card[for="hotel-4"] .st-on { display: block; }
+    #hotel-1:checked ~ .card .hotel-card[for="hotel-1"] .st-off,
+    #hotel-2:checked ~ .card .hotel-card[for="hotel-2"] .st-off,
+    #hotel-3:checked ~ .card .hotel-card[for="hotel-3"] .st-off,
+    #hotel-4:checked ~ .card .hotel-card[for="hotel-4"] .st-off { display: none; }
+
+    #hotel-1:checked ~ .card .chip-h1,
+    #hotel-2:checked ~ .card .chip-h2,
+    #hotel-3:checked ~ .card .chip-h3,
+    #hotel-4:checked ~ .card .chip-h4 { display: inline; }
+
+    #hotel-1:checked ~ .card .sub-h1,
+    #hotel-2:checked ~ .card .sub-h2,
+    #hotel-3:checked ~ .card .sub-h3,
+    #hotel-4:checked ~ .card .sub-h4 { display: inline; }
+
+    /* Day tabs */
+    .tabs {
+      display: inline-flex;
+      padding: 4px;
+      border-radius: 12px;
+      background: rgba(241, 245, 249, 0.9);
+      align-self: flex-start;
+      flex-wrap: wrap;
+      gap: 2px;
+    }
+    .day-tab {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      min-width: 52px;
+      min-height: 44px;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(245,158,11,0.25);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    #day-all:checked ~ .card .day-tab[for="day-all"],
+    #day-day1:checked ~ .card .day-tab[for="day-day1"],
+    #day-day2:checked ~ .card .day-tab[for="day-day2"],
+    #day-day3:checked ~ .card .day-tab[for="day-day3"] {
+      background: #fff;
+      color: #0f172a;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    }
+
+    /* Itinerary panels */
+    #itinerary-root { display: block; }
+    .hotel-itinerary {
+      display: none;
+      flex-direction: column;
+      gap: 28px;
+    }
+    #hotel-1:checked ~ .card #itinerary-hotel-1,
+    #hotel-2:checked ~ .card #itinerary-hotel-2,
+    #hotel-3:checked ~ .card #itinerary-hotel-3,
+    #hotel-4:checked ~ .card #itinerary-hotel-4 {
+      display: flex;
+    }
+    .day-block { display: block; }
+    #day-day1:checked ~ .card .day-block:not([data-day="day1"]),
+    #day-day2:checked ~ .card .day-block:not([data-day="day2"]),
+    #day-day3:checked ~ .card .day-block:not([data-day="day3"]) {
+      display: none !important;
+    }
+    .day-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .day-pill {
+      display: inline-block;
+      color: #fff;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    .day-pill.d1 { background: #1e293b; }
+    .day-pill.d2 { background: #0f766e; }
+    .day-pill.d3 { background: #059669; }
+    .day-head h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .slots { display: flex; flex-direction: column; gap: 10px; }
+    .slot {
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+    .slot.is-calm {
+      border-color: #99f6e4;
+      background: rgba(240, 253, 250, 0.55);
+    }
+    .slot-time {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #b45309;
+      letter-spacing: 0.04em;
+    }
+    .slot.is-calm .slot-time { color: #0f766e; }
+    .slot-heading {
+      font-weight: 700;
+      font-size: 15px;
+      color: #0f172a;
+      margin-top: 4px;
+    }
+    .slot-desc {
+      font-size: 13px;
+      color: #475569;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+    .slot-tip {
+      margin-top: 10px;
+      font-size: 13px;
+      border-radius: 8px;
+      padding: 8px 12px;
+      background: #fffbeb;
+      border: 1px solid rgba(253, 230, 138, 0.9);
+      color: #78350f;
+    }
+    .slot-tip.is-calm {
+      background: #f0fdfa;
+      border-color: rgba(153, 246, 228, 0.9);
+      color: #134e4a;
+    }
+
+    /* Checklist */
+    .chk-list { display: flex; flex-direction: column; gap: 10px; }
+    .chk-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(245,158,11,0.25);
+    }
+    .chk-item input {
+      margin-top: 3px;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      accent-color: #f59e0b;
+      touch-action: manipulation;
+    }
+    .chk-title {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 14px;
+    }
+    .checkbox-custom:checked + .chk-body .chk-title {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+    .chk-tip {
+      font-size: 13px;
+      color: #475569;
+      margin-top: 4px;
+      line-height: 1.55;
+    }
+    .btn-reset {
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      align-self: flex-start;
+      min-height: 44px;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(245,158,11,0.25);
+    }
+    .btn-reset:active { background: #e2e8f0; }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #64748b;
+      padding: 8px 16px 24px;
+    }
+
+    @media (min-width: 640px) {
+      .hero { padding: 48px 24px 80px; }
+      .hero h1 { font-size: 40px; }
+      .hero-sub { font-size: 28px; }
+      .hero-lead { font-size: 17px; }
+      .principles { grid-template-columns: repeat(4, 1fr); }
+      .card { padding: 28px 32px; }
+      .card-head { flex-direction: row; align-items: flex-start; justify-content: space-between; }
+      .hotel-grid { grid-template-columns: 1fr 1fr; }
+      .wrap-wide { padding: 0 24px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="pill"><span>🎄</span><span>2026年12月中旬・三日兩夜零壓力企劃（4大方案）</span></div>
+      <h1>爸爸療程畢業 &amp; 大女考完呈分試</h1>
+      <p class="hero-sub">全家聖誕豪華 Staycation</p>
+      <p class="hero-lead">免舟車勞頓、隨時上房充電嘅高舒適度慶祝方案。揀一間酒店，即睇度身訂造嘅三日兩夜分段式行程。</p>
+      <p class="path-line">先揀酒店 → 再睇行程 → 再打勾準備</p>
+      <div class="principles">
+        <div class="principle">
+          <div class="principle-label">交通緩衝</div>
+          <div class="principle-title">20–30 分鐘紅的</div>
+          <div class="principle-desc">點對點直達，隨時可返屋企</div>
+        </div>
+        <div class="principle">
+          <div class="principle-label">體力節奏</div>
+          <div class="principle-title">半日玩・強制午睡</div>
+          <div class="principle-desc">Day 2 中午必返房瞓 3 小時</div>
+        </div>
+        <div class="principle">
+          <div class="principle-label">腸胃安全</div>
+          <div class="principle-title">鎖定中菜與熱食</div>
+          <div class="principle-desc">避開生冷自助餐嚴防腸胃炎</div>
+        </div>
+        <div class="principle">
+          <div class="principle-label">11歲 &amp; 3歲兼顧</div>
+          <div class="principle-title">大女減壓・細女放電</div>
+          <div class="principle-desc">尊享卡免排隊 / 大型室內場</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap-wide">
+
+    <!-- State radios: must precede .card siblings for :checked ~ CSS -->
+    <input type="radio" name="hotel" id="hotel-1" class="sr-only" value="1" checked>
+    <input type="radio" name="hotel" id="hotel-2" class="sr-only" value="2">
+    <input type="radio" name="hotel" id="hotel-3" class="sr-only" value="3">
+    <input type="radio" name="hotel" id="hotel-4" class="sr-only" value="4">
+    <input type="radio" name="day" id="day-all" class="sr-only" value="all" checked>
+    <input type="radio" name="day" id="day-day1" class="sr-only" value="day1">
+    <input type="radio" name="day" id="day-day2" class="sr-only" value="day2">
+    <input type="radio" name="day" id="day-day3" class="sr-only" value="day3">
+
+    <section class="card">
+      <div class="card-head">
+        <div>
+          <span class="step-badge">Step 1</span>
+          <h2>揀邊間酒店？</h2>
+          <p class="hint">四個方案都符合「短交通 + 午睡鐵律 + 熱食中菜」。點一下卡片即鎖定並睇行程。</p>
+        </div>
+        <div class="selected-chip">
+          <span class="dot"></span>
+          <span id="selected-chip-text">
+            <span class="chip-h chip-h1">已選：香港迪士尼樂園酒店</span>
+<span class="chip-h chip-h2">已選：迪士尼探索家酒店</span>
+<span class="chip-h chip-h3">已選：富麗敦海洋公園酒店</span>
+<span class="chip-h chip-h4">已選：愉景灣酒店 × 迪士尼</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="hotel-grid" role="radiogroup" aria-label="酒店方案">
+        <label for="hotel-1" class="hotel-card" id="hotel-card-1">
+          <span class="hotel-badge">🌟 頭號推薦</span>
+          <div>
+            <div class="hotel-scheme">方案 A</div>
+            <div class="hotel-name">香港迪士尼樂園酒店</div>
+            <div class="hotel-room">國賓廳 · 園區門口級方便</div>
+            <ul class="hotel-list">
+              <li>· 步行入園，爸爸體力最慳</li>
+              <li>· 晶荷軒熱食中菜穩陣</li>
+              <li>· 尊享卡免排隊，大女細女都開心</li>
+            </ul>
+            <p class="hotel-note">紅的約 25–30 分鐘由市區直達；隨時可返房充電，零轉車壓力。</p>
+          </div>
+          <div class="hotel-status"><span class="st-on">✓ 已選 · 行程喺下面</span><span class="st-off">揀呢間 · 睇行程</span></div>
+        </label>
+
+        <label for="hotel-2" class="hotel-card" id="hotel-card-2">
+          <div>
+            <div class="hotel-scheme">方案 B</div>
+            <div class="hotel-name">迪士尼探索家酒店</div>
+            <div class="hotel-room">海景兩大床 · 新派度假感</div>
+            <ul class="hotel-list">
+              <li>· 兩大床，一家四口瞓得舒服</li>
+              <li>· 免費穿梭巴士入園</li>
+              <li>· 雲龍軒／酒店熱食中菜可訂</li>
+            </ul>
+            <p class="hotel-note">同樣迪士尼區，景觀開揚；適合想要多啲空間、又唔想離開園區生態嘅家庭。</p>
+          </div>
+          <div class="hotel-status"><span class="st-on">✓ 已選 · 行程喺下面</span><span class="st-off">揀呢間 · 睇行程</span></div>
+        </label>
+
+        <label for="hotel-3" class="hotel-card" id="hotel-card-3">
+          <div>
+            <div class="hotel-scheme">方案 C</div>
+            <div class="hotel-name">富麗敦海洋公園酒店</div>
+            <div class="hotel-room">南區海景 · 室內場為主</div>
+            <ul class="hotel-list">
+              <li>· 海洋公園 + 室內水族館節奏鬆</li>
+              <li>· 玉軒級熱食中菜可安排</li>
+              <li>· 細女放電、爸爸少行山大坡</li>
+            </ul>
+            <p class="hotel-note">市區紅的約 20–25 分鐘；想換景、少啲迪士尼人潮時嘅穩陣備選。</p>
+          </div>
+          <div class="hotel-status"><span class="st-on">✓ 已選 · 行程喺下面</span><span class="st-off">揀呢間 · 睇行程</span></div>
+        </label>
+
+        <label for="hotel-4" class="hotel-card" id="hotel-card-4">
+          <div>
+            <div class="hotel-scheme">方案 D</div>
+            <div class="hotel-name">愉景灣酒店 × 迪士尼</div>
+            <div class="hotel-room">海灣靜養 · 一日入園</div>
+            <div class="hotel-inline-tag">靜養＋迪士尼混合</div>
+            <ul class="hotel-list">
+              <li>· 牡丹軒熱食中菜 + 海灘慢節奏</li>
+              <li>· Day 2 午睡環境極靜</li>
+              <li>· 預留半日迪士尼（尊享卡）</li>
+            </ul>
+            <p class="hotel-note">最適合「慶祝但唔想嘈」：一晚靜養、一節園區，體力分配最寛容。</p>
+          </div>
+          <div class="hotel-status"><span class="st-on">✓ 已選 · 行程喺下面</span><span class="st-off">揀呢間 · 睇行程</span></div>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <div>
+          <span class="step-badge">Step 2</span>
+          <h2>三日兩夜行程</h2>
+          <p class="hint" id="itinerary-subtitle">
+            <span class="sub-h sub-h1">香港迪士尼樂園酒店 · 國賓廳 · 头号推薦 · 園區門口</span>
+<span class="sub-h sub-h2">迪士尼探索家酒店 · 海景兩大床 · 空間王 · 海景兩大床</span>
+<span class="sub-h sub-h3">富麗敦海洋公園酒店 · 海景客房 · 南區 · 室內場節奏</span>
+<span class="sub-h sub-h4">愉景灣酒店 × 迪士尼 · 海灣景觀 · 靜養＋迪士尼混合</span>
+          </p>
+        </div>
+        <div class="tabs" role="tablist" aria-label="日子篩選">
+          <label for="day-all" class="day-tab" id="tab-all">全部</label>
+          <label for="day-day1" class="day-tab" id="tab-day1">Day 1</label>
+          <label for="day-day2" class="day-tab" id="tab-day2">Day 2</label>
+          <label for="day-day3" class="day-tab" id="tab-day3">Day 3</label>
+        </div>
+      </div>
+      <div id="itinerary-root">
+<div class="hotel-itinerary" data-hotel="1" id="itinerary-hotel-1">
+<div class="day-block" data-day="day1">
+<div class="day-head"><span class="day-pill d1">DAY 1</span><h3>抵達 · 輕鬆入園 · 熱食開胃</h3></div>
+<div class="slots">
+<div class="slot"><div class="slot-time">14:00–16:00</div><div class="slot-heading">紅的直達 → Check-in → 上房放低行李</div><p class="slot-desc">由市區預留約 25–30 分鐘紅的點對點。入房先沖涼、喝溫水，唔急住入園。細女可以喺酒店走廊／花園先放電十分鐘。</p><div class="slot-tip">提示：提早講明要安靜樓層；保溫壺入房即時煲水。</div></div>
+<div class="slot"><div class="slot-time">17:30–20:30</div><div class="slot-heading">短遊園區 + 晶荷軒熱食中菜</div><p class="slot-desc">用尊享卡只排 1–2 個必玩（大女揀），其餘當散步同影相。黃昏前離園，晶荷軒坐低食熱湯、蒸菜、白飯——嚴禁生冷自助。</p><div class="slot-tip">提示：爸爸手套頸巾帶出門；凍就即刻返酒店，唔好硬撐煙花。</div></div>
+</div></div>
+<div class="day-block" data-day="day2">
+<div class="day-head"><span class="day-pill d2">DAY 2</span><h3>半日玩 · 午睡鐵律 · 輕盈夜晚</h3></div>
+<div class="slots">
+<div class="slot"><div class="slot-time">09:00–12:00</div><div class="slot-heading">早餐後再入園半日（尊享卡）</div><p class="slot-desc">酒店早餐揀熱食區。入園目標明確：大女 2 個想玩、細女 1 個室內／陰涼項目。12 點前必須離園返酒店。</p><div class="slot-tip">提示：唔好貪玩超時；午睡係今次慶祝嘅核心醫療級節奏。</div></div>
+<div class="slot is-calm"><div class="slot-time">12:30–15:30</div><div class="slot-heading">關鍵緩衝：返房強制午睡 3 小時</div><p class="slot-desc">午飯簡單熱粥／粉麵即可。拉簾、冷氣適中、電話靜音。爸爸同細女一定瞓；大女可安靜睇書。呢段時間唔安排任何外出。</p><div class="slot-tip is-calm">鐵律：破午睡 = 第二日全家崩潰。守住就係最好嘅慶祝。</div></div>
+<div class="slot"><div class="slot-time">17:00–20:00</div><div class="slot-heading">酒店範圍慢活 + 再一餐熱中菜</div><p class="slot-desc">起床後溫水、輕鬆伸展。晚餐可繼續晶荷軒或酒店另一熱食中菜位。之後喺大堂／花園影聖誕燈，早啲返房。</p><div class="slot-tip">提示：今晚早睡，為 Day 3 退房留體力。</div></div>
+</div></div>
+<div class="day-block" data-day="day3">
+<div class="day-head"><span class="day-pill d3">DAY 3</span><h3>慢早餐 · 退房 · 紅的返市區</h3></div>
+<div class="slots">
+<div class="slot"><div class="slot-time">08:30–11:30</div><div class="slot-heading">早餐 → 收拾 → 紅的回家</div><p class="slot-desc">唔使再入園。慢慢食熱早餐，影張全家相，預留緩衝退房。紅的直返市區，車廂備溫水同薄外套。</p></div>
+</div></div>
+</div>
+<div class="hotel-itinerary" data-hotel="2" id="itinerary-hotel-2">
+<div class="day-block" data-day="day1">
+<div class="day-head"><span class="day-pill d1">DAY 1</span><h3>抵達 · 穿梭巴士 · 雲龍軒熱食</h3></div>
+<div class="slots">
+<div class="slot"><div class="slot-time">14:00–16:30</div><div class="slot-heading">紅的到店 → Check-in → 海景房放電</div><p class="slot-desc">探索家有兩大床，一家四口瞓姿最寛鬆。放低行李後先睇海、喝溫水，再決定幾時搭免費穿梭巴士入園。</p><div class="slot-tip">提示：兩大床中間預留走位，細女夜醒唔會踢到所有人。</div></div>
+<div class="slot"><div class="slot-time">17:00–20:30</div><div class="slot-heading">短遊園區 + 雲龍軒／酒店熱中菜</div><p class="slot-desc">穿梭巴士入園，尊享卡減壓。只玩精華，黃昏前返酒店。晚餐鎖定熱食中菜（雲龍軒或酒店中菜位），湯、蒸魚、時菜、白飯。</p><div class="slot-tip">提示：巴士尾行尾班前預留 15 分鐘緩衝，爸爸唔好趕。</div></div>
+</div></div>
+<div class="day-block" data-day="day2">
+<div class="day-head"><span class="day-pill d2">DAY 2</span><h3>半日園區 · 海景房午睡 · 靜夜</h3></div>
+<div class="slots">
+<div class="slot"><div class="slot-time">09:00–12:00</div><div class="slot-heading">早餐後入園半日</div><p class="slot-desc">目標清單寫死：大女兩個、細女一個。12 點前搭巴士返酒店，唔好加「順路多一個」。</p><div class="slot-tip">提示：尊享卡時段預先揀好，減少園內走回頭路。</div></div>
+<div class="slot is-calm"><div class="slot-time">12:30–15:30</div><div class="slot-heading">關鍵緩衝：海景房強制午睡 3 小時</div><p class="slot-desc">簡單熱午餐後拉簾午睡。探索家走廊相對安靜，適合爸爸真正瞓一覺。大女用耳筒睇片，細女跟爸爸瞓。</p><div class="slot-tip is-calm">鐵律：午睡係行程一部分，唔係「得閒先瞓」。</div></div>
+<div class="slot"><div class="slot-time">17:00–20:00</div><div class="slot-heading">酒店泳池外圍散步 + 熱食晚餐</div><p class="slot-desc">起床後唔使再入園。酒店範圍影相、細女輕鬆放電，晚餐再一餐熱中菜。早返房睇海景聖誕燈。</p><div class="slot-tip">提示：泳池邊風大，爸爸頸巾手套要帶。</div></div>
+</div></div>
+<div class="day-block" data-day="day3">
+<div class="day-head"><span class="day-pill d3">DAY 3</span><h3>海景早餐 · 退房返市區</h3></div>
+<div class="slots">
+<div class="slot"><div class="slot-time">08:30–11:30</div><div class="slot-heading">慢早餐 → 退房 → 紅的</div><p class="slot-desc">用海景位食熱早餐，收拾兩大床行李（預留多 10 分鐘）。紅的直返，車程約 25–30 分鐘。</p></div>
+</div></div>
+</div>
+<div class="hotel-itinerary" data-hotel="3" id="itinerary-hotel-3">
+<div class="day-block" data-day="day1">
+<div class="day-head"><span class="day-pill d1">DAY 1</span><h3>抵達南區 · 酒店安頓 · 熱食</h3></div>
+<div class="slots">
+<div class="slot"><div class="slot-time">14:00–16:00</div><div class="slot-heading">紅的約 20–25 分鐘直達 → Check-in</div><p class="slot-desc">交通最短之一。入房後先休息，唔急住入海洋公園。細女可喺酒店公共空間先玩一陣。</p><div class="slot-tip">提示：南區風大，出酒店前着好頸巾。</div></div>
+<div class="slot"><div class="slot-time">16:30–20:30</div><div class="slot-heading">海洋公園精華短遊 + 玉軒級熱中菜</div><p class="slot-desc">以室內場館為主（水族館、室內展），減少行山坡。黃昏離園，晚宴訂熱食中菜（玉軒級／酒店中菜），湯麵蒸菜為主。</p><div class="slot-tip">提示：纜車同室外過山車可略過，保住爸爸體力。</div></div>
+</div></div>
+<div class="day-block" data-day="day2">
+<div class="day-head"><span class="day-pill d2">DAY 2</span><h3>室內場上午 · 午睡鐵律 · 酒店夜</h3></div>
+<div class="slots">
+<div class="slot"><div class="slot-time">09:00–12:00</div><div class="slot-heading">再入園半日：鎖定室內同陰涼區</div><p class="slot-desc">早餐後只安排室內／平路項目。12 點前返酒店，唔挑戰「再多一個展館」。</p><div class="slot-tip">提示：細女放電優先室內，大女可揀一個想影相嘅展區。</div></div>
+<div class="slot is-calm"><div class="slot-time">12:30–15:30</div><div class="slot-heading">關鍵緩衝：返房強制午睡 3 小時</div><p class="slot-desc">熱午餐後全面靜音午睡。富麗敦房間隔音同海景都適合真正休息。呢段唔見客、唔外出。</p><div class="slot-tip is-calm">鐵律：南區慶祝都一樣——午睡 &gt; 多玩一個設施。</div></div>
+<div class="slot"><div class="slot-time">17:00–20:00</div><div class="slot-heading">酒店內慢活 + 熱中菜</div><p class="slot-desc">大堂／海景位影聖誕燈，晚餐繼續熱食。早啲返房，準備第二日退房。</p><div class="slot-tip">提示：如體力好可只喺酒店範圍行，唔使再入園。</div></div>
+</div></div>
+<div class="day-block" data-day="day3">
+<div class="day-head"><span class="day-pill d3">DAY 3</span><h3>早餐 · 退房 · 最短紅的返程</h3></div>
+<div class="slots">
+<div class="slot"><div class="slot-time">08:30–11:00</div><div class="slot-heading">慢早餐 → 退房 → 返市區</div><p class="slot-desc">交通優勢發揮：紅的約 20–25 分鐘返市區。車廂備溫水，爸爸外套勿收太早。</p></div>
+</div></div>
+</div>
+<div class="hotel-itinerary" data-hotel="4" id="itinerary-hotel-4">
+<div class="day-block" data-day="day1">
+<div class="day-head"><span class="day-pill d1">DAY 1</span><h3>海灣靜養日 · 牡丹軒熱食</h3></div>
+<div class="slots">
+<div class="slot"><div class="slot-time">14:00–17:00</div><div class="slot-heading">抵達愉景灣 → Check-in → 海灘／酒店慢活</div><p class="slot-desc">今日唔入園。放低行李後喺海灣散步、細女沙灘輕玩，爸爸坐低吹風喝溫水。節奏刻意慢。</p><div class="slot-tip">提示：靜養日係特色——抗拒「既然出嚟就要玩爆」嘅衝動。</div></div>
+<div class="slot"><div class="slot-time">18:00–20:30</div><div class="slot-heading">牡丹軒熱食中菜 · 早睡</div><p class="slot-desc">牡丹軒訂位食熱湯、蒸菜、白飯。餐後酒店內影燈，10 點前瞓，為 Day 2 迪士尼半日存電。</p><div class="slot-tip">提示：愉景灣夜晚涼，手套頸巾必備。</div></div>
+</div></div>
+<div class="day-block" data-day="day2">
+<div class="day-head"><span class="day-pill d2">DAY 2</span><h3>半日迪士尼 · 返灣午睡 · 靜夜</h3></div>
+<div class="slots">
+<div class="slot"><div class="slot-time">08:30–12:30</div><div class="slot-heading">出發迪士尼半日（尊享卡精華）</div><p class="slot-desc">預留交通緩衝。入園只玩大女細女共識嘅 2–3 個項目，尊享卡減隊。中午前必須啓程返愉景灣。</p><div class="slot-tip">提示：混合方案成功關鍵＝園區半日要收得手。</div></div>
+<div class="slot is-calm"><div class="slot-time">13:30–16:30</div><div class="slot-heading">關鍵緩衝：海灣酒店強制午睡 3 小時</div><p class="slot-desc">返到酒店即刻熱午餐 + 午睡。愉景灣安靜度高，爸爸恢復最好。大女房內安靜活動，細女跟瞓。</p><div class="slot-tip is-calm">鐵律：寧願園區少玩，都唔好削午睡。</div></div>
+<div class="slot"><div class="slot-time">17:30–20:00</div><div class="slot-heading">海灣日落 + 再一餐熱中菜</div><p class="slot-desc">起床後海邊慢行影夕陽，晚餐牡丹軒或酒店熱食。慶祝收喺安靜環境，唔再刺激。</p><div class="slot-tip">提示：今晚係真正「療程畢業」氣氛——靜、熱食、早睡。</div></div>
+</div></div>
+<div class="day-block" data-day="day3">
+<div class="day-head"><span class="day-pill d3">DAY 3</span><h3>海灣早餐 · 退房返市區</h3></div>
+<div class="slots">
+<div class="slot"><div class="slot-time">08:30–12:00</div><div class="slot-heading">慢早餐 → 退房 → 回家</div><p class="slot-desc">唔使再趕園區。食完熱早餐，預留交通時間返市區。車程較長，備溫水同小食，細女有得睇。</p></div>
+</div></div>
+</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <div>
+          <span class="step-badge">Step 3</span>
+          <h2>出發前準備清單</h2>
+          <p class="hint">打勾會記住喺呢部裝置；提示文字打勾後仍可讀。</p>
+        </div>
+        <button type="button" class="btn-reset" id="btn-reset">重設清單</button>
+      </div>
+      <div class="chk-list">
+        <label class="chk-item">
+          <input type="checkbox" id="chk-1" class="checkbox-custom">
+          <div class="chk-body">
+            <div class="chk-title">訂房 + 確認兩晚連通／兩大床配置</div>
+            <p class="chk-tip">寫明一家四口、爸爸需要安靜休息；如迪士尼酒店優先國賓廳或同級安靜樓層。</p>
+          </div>
+        </label>
+        <label class="chk-item">
+          <input type="checkbox" id="chk-2" class="checkbox-custom">
+          <div class="chk-body">
+            <div class="chk-title">預訂熱食中菜（避開生冷自助）</div>
+            <p class="chk-tip">迪士尼：晶荷軒／雲龍軒；富麗敦：玉軒級中菜；愉景灣：牡丹軒。提早訂晚餐位，減少排隊同餓崩細路。</p>
+          </div>
+        </label>
+        <label class="chk-item">
+          <input type="checkbox" id="chk-3" class="checkbox-custom">
+          <div class="chk-body">
+            <div class="chk-title">買齊／啟動尊享卡（如入迪士尼）</div>
+            <p class="chk-tip">大女減壓、細女少哭鬧；爸爸少企隊。只排必玩 2–3 個，其餘當散步景觀。</p>
+          </div>
+        </label>
+        <label class="chk-item">
+          <input type="checkbox" id="chk-4" class="checkbox-custom">
+          <div class="chk-body">
+            <div class="chk-title">保溫壺 + 溫水策略</div>
+            <p class="chk-tip">爸爸全程喝溫水；酒店房煲水、餐廳先講「唔要凍飲」。細女備用常溫紙包。</p>
+          </div>
+        </label>
+        <label class="chk-item">
+          <input type="checkbox" id="chk-5" class="checkbox-custom">
+          <div class="chk-body">
+            <div class="chk-title">手套、頸巾、薄羽絨（12 月室外）</div>
+            <p class="chk-tip">晚上室外活動易凍；爸爸免疫力仍要護住。室內場可先除一層，唔好一次着到汗。</p>
+          </div>
+        </label>
+        <label class="chk-item">
+          <input type="checkbox" id="chk-6" class="checkbox-custom">
+          <div class="chk-body">
+            <div class="chk-title">全家講清楚：Day 2 午睡鐵律</div>
+            <p class="chk-tip">中午必返房瞓約 3 小時。大女可房內睇書／iPad；細女午睡。唔好因為「仲想玩」破例。</p>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <p class="footer">家庭內部企劃 · 2026 聖誕 · 選擇會存喺本機瀏覽器（v5 · WhatsApp 可用）</p>
+  </main>
+
+  <script>
+    (function () {
+      function saveHotel(id) {
+        try { localStorage.setItem('staycation_selected_hotel_id_v5', String(id)); } catch (e) {}
+      }
+
+      function saveCheck(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        try { localStorage.setItem('staycation_' + id + '_v5', el.checked ? 'true' : 'false'); } catch (e) {}
+      }
+
+      function resetChecklist() {
+        for (var i = 1; i <= 6; i++) {
+          var id = 'chk-' + i;
+          var el = document.getElementById(id);
+          if (el) {
+            el.checked = false;
+            try { localStorage.removeItem('staycation_' + id + '_v5'); } catch (e) {}
+          }
+        }
+      }
+
+      function bindTap(el, handler) {
+        if (!el) return;
+        var touched = false;
+        el.addEventListener('touchend', function (ev) {
+          touched = true;
+          ev.preventDefault();
+          handler(ev);
+        }, { passive: false });
+        el.addEventListener('click', function (ev) {
+          if (touched) {
+            touched = false;
+            ev.preventDefault();
+            return;
+          }
+          handler(ev);
+        });
+      }
+
+      function boot() {
+        /* Restore hotel selection */
+        try {
+          var saved = localStorage.getItem('staycation_selected_hotel_id_v5');
+          if (saved) {
+            var n = parseInt(saved, 10);
+            if (n >= 1 && n <= 4) {
+              var radio = document.getElementById('hotel-' + n);
+              if (radio) radio.checked = true;
+            }
+          }
+        } catch (e) {}
+
+        /* Restore checklist */
+        for (var i = 1; i <= 6; i++) {
+          var id = 'chk-' + i;
+          try {
+            if (localStorage.getItem('staycation_' + id + '_v5') === 'true') {
+              var el = document.getElementById(id);
+              if (el) el.checked = true;
+            }
+          } catch (e) {}
+        }
+
+        /* Hotel radios → localStorage (UI is CSS :checked) */
+        var hotelRadios = document.querySelectorAll('input[name="hotel"]');
+        for (var h = 0; h < hotelRadios.length; h++) {
+          hotelRadios[h].addEventListener('change', function () {
+            if (this.checked) saveHotel(this.value);
+          });
+        }
+
+        /* Checklist change */
+        for (var c = 1; c <= 6; c++) {
+          (function (cid) {
+            var cel = document.getElementById(cid);
+            if (cel) {
+              cel.addEventListener('change', function () { saveCheck(cid); });
+            }
+          })('chk-' + c);
+        }
+
+        /* Reset button — addEventListener only (no inline handlers) */
+        bindTap(document.getElementById('btn-reset'), function () {
+          resetChecklist();
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+      } else {
+        boot();
+      }
+    })();
+  </script>
+</body>
+</html>
