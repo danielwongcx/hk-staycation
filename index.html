@@ -533,9 +533,330 @@
       .wrap-wide { padding: 0 24px; }
     }
 
+
+    /* ===== Kid Mode toggle (floating) ===== */
+    .mode-toggle {
+      position: fixed;
+      z-index: 9999;
+      right: max(12px, env(safe-area-inset-right, 0px));
+      bottom: max(16px, env(safe-area-inset-bottom, 0px));
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      min-height: 48px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #78350f;
+      background: linear-gradient(145deg, #fffbeb, #fde68a);
+      border: 2px solid #f59e0b;
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35), 0 2px 6px rgba(15, 23, 42, 0.12);
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(216, 115, 80, 0.35);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .mode-toggle:active { transform: scale(0.97); }
+    .mode-toggle:focus-visible {
+      outline: 3px solid #D87350;
+      outline-offset: 3px;
+    }
+    .mode-toggle .toggle-ico { font-size: 16px; line-height: 1; }
+    .mode-toggle .label-on { display: none; }
+    .mode-toggle .label-off { display: inline; }
+    body.kid-mode .mode-toggle {
+      color: #fff;
+      background: linear-gradient(145deg, #D87350, #c45f3e);
+      border-color: #896B60;
+      box-shadow: 0 8px 24px rgba(216, 115, 80, 0.45), 0 2px 6px rgba(137, 107, 96, 0.25);
+    }
+    body.kid-mode .mode-toggle .label-on { display: inline; }
+    body.kid-mode .mode-toggle .label-off { display: none; }
+
+    /* ===== Kid Mode · 峽谷筆 (canyon-pen) ===== */
+    body.kid-mode {
+      color: #4a3728;
+      background-color: #F5E6D3;
+      background-image:
+        radial-gradient(ellipse 120% 80% at 50% -10%, rgba(135, 206, 235, 0.55), transparent 55%),
+        radial-gradient(ellipse 80% 50% at 100% 100%, rgba(216, 115, 80, 0.18), transparent 50%),
+        radial-gradient(rgba(165, 135, 127, 0.22) 1.1px, transparent 1.1px),
+        linear-gradient(180deg, #E8F4F8 0%, #F5E6D3 28%, #E8C4A8 100%);
+      background-size: auto, auto, 22px 22px, auto;
+      background-attachment: fixed;
+      font-size: 17px;
+      padding-bottom: 88px;
+    }
+    body.kid-mode button {
+      -webkit-tap-highlight-color: rgba(216, 115, 80, 0.3);
+    }
+
+    body.kid-mode .hero {
+      background:
+        linear-gradient(165deg, rgba(135, 206, 235, 0.95) 0%, rgba(184, 212, 232, 0.9) 18%, transparent 42%),
+        linear-gradient(195deg, #D87350 0%, #c45f3e 35%, #896B60 70%, #6d5349 100%);
+      color: #fff;
+      box-shadow: 0 12px 32px rgba(137, 107, 96, 0.4);
+      border-bottom: 4px dashed rgba(232, 196, 168, 0.55);
+      border-radius: 0 0 28px 32px;
+    }
+    body.kid-mode .pill {
+      background: rgba(255, 255, 255, 0.25);
+      border: 2px dashed rgba(255, 251, 235, 0.55);
+      color: #fffbeb;
+      border-radius: 18px 22px 16px 20px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    body.kid-mode .hero h1 {
+      font-size: 30px;
+      text-shadow: 0 2px 0 rgba(109, 83, 73, 0.25);
+    }
+    body.kid-mode .hero-sub {
+      background: linear-gradient(90deg, #fff7ed, #fde68a, #fdba74);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-size: 24px;
+    }
+    body.kid-mode .hero-lead { color: #f5e6d3; font-size: 16px; }
+    body.kid-mode .path-line {
+      color: #fffbeb;
+      font-size: 15px;
+      border: 2px dashed rgba(255, 251, 235, 0.4);
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 14px 18px 12px 16px;
+      background: rgba(255,255,255,0.12);
+    }
+    body.kid-mode .principle {
+      background: rgba(255,255,255,0.22);
+      border: 2px solid rgba(232, 196, 168, 0.45);
+      border-radius: 18px 14px 20px 16px;
+    }
+    body.kid-mode .principle-label { color: #fde68a; }
+    body.kid-mode .principle-title { color: #fff; font-size: 16px; }
+    body.kid-mode .principle-desc { color: #f5e6d3; }
+
+    body.kid-mode .card {
+      background: rgba(255, 251, 245, 0.97);
+      border: 3px solid #E8C4A8;
+      border-radius: 22px 18px 24px 20px;
+      box-shadow:
+        0 10px 28px rgba(137, 107, 96, 0.14),
+        inset 0 0 0 1px rgba(255,255,255,0.6);
+      padding: 22px 18px;
+    }
+    body.kid-mode .card-head {
+      border-bottom: 2px dashed #E8C4A8;
+    }
+    body.kid-mode .step-badge {
+      color: #fff;
+      background: linear-gradient(135deg, #D87350, #e8956e);
+      border-radius: 12px 10px 14px 8px;
+      font-size: 12px;
+      padding: 5px 12px;
+      border: 2px solid #c45f3e;
+    }
+    body.kid-mode .card-head h2 {
+      color: #5c4033;
+      font-size: 24px;
+    }
+    body.kid-mode .card-head .hint { color: #896B60; font-size: 14px; }
+
+    body.kid-mode .selected-chip {
+      background: #fff5ee;
+      border: 2px solid #D87350;
+      color: #7c3a1e;
+      border-radius: 18px 22px 16px 20px;
+      font-size: 14px;
+      box-shadow: 0 2px 8px rgba(216, 115, 80, 0.2);
+    }
+    body.kid-mode .selected-chip .dot { background: #D87350; width: 10px; height: 10px; }
+
+    body.kid-mode .hotel-card {
+      border: 2.5px solid #E8C4A8;
+      border-radius: 20px 16px 22px 18px;
+      background: #fffdf9;
+      min-height: 210px;
+      padding: 20px 18px;
+      -webkit-tap-highlight-color: rgba(216, 115, 80, 0.3);
+    }
+    body.kid-mode .hotel-card:focus-visible {
+      outline: 3px solid #D87350;
+      outline-offset: 3px;
+    }
+    body.kid-mode .hotel-badge {
+      background: linear-gradient(135deg, #D87350, #f59e0b);
+      border: 2px solid #c45f3e;
+      border-radius: 14px 18px 12px 16px;
+      font-size: 12px;
+      top: -14px;
+    }
+    body.kid-mode .hotel-scheme { color: #A5877F; font-size: 12px; }
+    body.kid-mode .hotel-name { color: #5c4033; font-size: 18px; }
+    body.kid-mode .hotel-room { color: #896B60; font-size: 14px; }
+    body.kid-mode .hotel-inline-tag {
+      background: #E8C4A8;
+      color: #5c4033;
+      border-radius: 10px 8px 12px 6px;
+      font-size: 12px;
+    }
+    body.kid-mode .hotel-list li { color: #6d5349; font-size: 14px; }
+    body.kid-mode .hotel-note { color: #896B60; font-size: 13px; }
+    body.kid-mode .hotel-status {
+      background: #F5E6D3;
+      color: #5c4033;
+      border-radius: 14px 18px 12px 16px;
+      border: 2px dashed #E8C4A8;
+      font-size: 14px;
+    }
+
+    body.kid-mode #hotel-1:checked ~ .card .hotel-card[for="hotel-1"],
+    body.kid-mode #hotel-2:checked ~ .card .hotel-card[for="hotel-2"],
+    body.kid-mode #hotel-3:checked ~ .card .hotel-card[for="hotel-3"],
+    body.kid-mode #hotel-4:checked ~ .card .hotel-card[for="hotel-4"] {
+      border: 3px solid #D87350;
+      background: rgba(255, 237, 224, 0.75);
+      box-shadow: 0 6px 18px rgba(216, 115, 80, 0.28);
+    }
+    body.kid-mode #hotel-1:checked ~ .card .hotel-card[for="hotel-1"] .hotel-scheme,
+    body.kid-mode #hotel-2:checked ~ .card .hotel-card[for="hotel-2"] .hotel-scheme,
+    body.kid-mode #hotel-3:checked ~ .card .hotel-card[for="hotel-3"] .hotel-scheme,
+    body.kid-mode #hotel-4:checked ~ .card .hotel-card[for="hotel-4"] .hotel-scheme {
+      color: #c45f3e;
+    }
+    body.kid-mode #hotel-1:checked ~ .card .hotel-card[for="hotel-1"] .hotel-status,
+    body.kid-mode #hotel-2:checked ~ .card .hotel-card[for="hotel-2"] .hotel-status,
+    body.kid-mode #hotel-3:checked ~ .card .hotel-card[for="hotel-3"] .hotel-status,
+    body.kid-mode #hotel-4:checked ~ .card .hotel-card[for="hotel-4"] .hotel-status {
+      background: linear-gradient(135deg, #D87350, #e8956e);
+      color: #fff;
+      border-style: solid;
+      border-color: #c45f3e;
+      box-shadow: 0 2px 8px rgba(216, 115, 80, 0.35);
+    }
+
+    body.kid-mode .tabs {
+      background: rgba(232, 196, 168, 0.45);
+      border-radius: 16px 14px 18px 12px;
+      border: 2px dashed #A5877F;
+      padding: 5px;
+    }
+    body.kid-mode .day-tab {
+      color: #6d5349;
+      border-radius: 12px 10px 14px 8px;
+      font-size: 13px;
+      min-height: 46px;
+      -webkit-tap-highlight-color: rgba(216, 115, 80, 0.3);
+    }
+    body.kid-mode #day-all:checked ~ .card .day-tab[for="day-all"],
+    body.kid-mode #day-day1:checked ~ .card .day-tab[for="day-day1"],
+    body.kid-mode #day-day2:checked ~ .card .day-tab[for="day-day2"],
+    body.kid-mode #day-day3:checked ~ .card .day-tab[for="day-day3"] {
+      background: #fffdf9;
+      color: #5c4033;
+      box-shadow: 0 2px 6px rgba(137, 107, 96, 0.15);
+      border: 2px solid #D87350;
+    }
+
+    body.kid-mode .day-pill {
+      border-radius: 12px 10px 14px 8px;
+      font-size: 14px;
+      border: 2px solid rgba(255,255,255,0.35);
+    }
+    body.kid-mode .day-pill.d1 { background: linear-gradient(135deg, #896B60, #A5877F); }
+    body.kid-mode .day-pill.d2 { background: linear-gradient(135deg, #2a9d8f, #5eb7b0); }
+    body.kid-mode .day-pill.d3 { background: linear-gradient(135deg, #D87350, #e8956e); }
+    body.kid-mode .day-head h3 { color: #5c4033; font-size: 17px; }
+
+    body.kid-mode .slot {
+      border: 2.5px solid #E8C4A8;
+      border-radius: 16px 14px 18px 12px;
+      background: #fffdf9;
+      box-shadow: 0 2px 8px rgba(137, 107, 96, 0.08);
+      padding: 18px;
+    }
+    body.kid-mode .slot.is-calm {
+      border-color: #7ec8c0;
+      border-style: dashed;
+      background: linear-gradient(160deg, rgba(232, 244, 248, 0.9), rgba(178, 223, 219, 0.45));
+    }
+    body.kid-mode .slot-time {
+      color: #D87350;
+      font-size: 12px;
+    }
+    body.kid-mode .slot.is-calm .slot-time { color: #1d7a72; }
+    body.kid-mode .slot-heading {
+      color: #5c4033;
+      font-size: 16px;
+    }
+    body.kid-mode .slot-desc { color: #6d5349; font-size: 14px; }
+    body.kid-mode .slot-tip {
+      background: #fff5ee;
+      border: 2px dashed #E8C4A8;
+      color: #7c3a1e;
+      border-radius: 12px 10px 14px 8px;
+      font-size: 14px;
+    }
+    body.kid-mode .slot-tip.is-calm {
+      background: #e8f6f4;
+      border-color: #7ec8c0;
+      color: #134e4a;
+    }
+
+    body.kid-mode .chk-item {
+      border: 2.5px solid #E8C4A8;
+      border-radius: 16px 14px 18px 12px;
+      background: #fffdf9;
+      -webkit-tap-highlight-color: rgba(216, 115, 80, 0.3);
+      padding: 16px;
+    }
+    body.kid-mode .chk-item input {
+      accent-color: #D87350;
+      width: 22px;
+      height: 22px;
+    }
+    body.kid-mode .chk-title { color: #5c4033; font-size: 15px; }
+    body.kid-mode .checkbox-custom:checked + .chk-body .chk-title {
+      color: #A5877F;
+    }
+    body.kid-mode .chk-tip { color: #896B60; font-size: 14px; }
+    body.kid-mode .btn-reset {
+      color: #5c4033;
+      background: #E8C4A8;
+      border: 2px dashed #896B60;
+      border-radius: 14px 12px 16px 10px;
+      font-size: 13px;
+      -webkit-tap-highlight-color: rgba(216, 115, 80, 0.3);
+    }
+    body.kid-mode .btn-reset:active { background: #d4b09a; }
+
+    body.kid-mode .footer {
+      color: #896B60;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    @media (min-width: 640px) {
+      body.kid-mode .hero h1 { font-size: 42px; }
+      body.kid-mode .hero-sub { font-size: 30px; }
+      body.kid-mode .card { padding: 30px 34px; }
+    }
+
   </style>
 </head>
 <body>
+
+  <button type="button" class="mode-toggle" id="btn-kid-mode" aria-pressed="false" aria-label="切換 Kid Mode 峽谷筆">
+    <span class="toggle-ico" aria-hidden="true">✏️</span>
+    <span class="label-off">Kid Mode · 峽谷筆</span>
+    <span class="label-on">大人模式</span>
+  </button>
+
 
   <header class="hero">
     <div class="hero-inner">
@@ -822,11 +1143,45 @@
       </div>
     </section>
 
-    <p class="footer">家庭內部企劃 · 2026 聖誕 · 選擇會存喺本機瀏覽器（v5 · WhatsApp 可用）</p>
+    <p class="footer">家庭內部企劃 · 2026 聖誕 · 選擇會存喺本機瀏覽器（v5 · Kid Mode · WhatsApp 可用）</p>
   </main>
 
   <script>
     (function () {
+
+      var KID_KEY = 'staycation_kid_mode_v1';
+
+      function applyKidMode(on) {
+        if (on) {
+          document.body.classList.add('kid-mode');
+        } else {
+          document.body.classList.remove('kid-mode');
+        }
+        var btn = document.getElementById('btn-kid-mode');
+        if (btn) {
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.setAttribute('aria-label', on ? '切換回大人模式' : '切換 Kid Mode 峽谷筆');
+        }
+      }
+
+      function saveKidMode(on) {
+        try { localStorage.setItem(KID_KEY, on ? '1' : '0'); } catch (e) {}
+      }
+
+      function loadKidMode() {
+        try {
+          return localStorage.getItem(KID_KEY) === '1';
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function toggleKidMode() {
+        var on = !document.body.classList.contains('kid-mode');
+        applyKidMode(on);
+        saveKidMode(on);
+      }
+
       function saveHotel(id) {
         try { localStorage.setItem('staycation_selected_hotel_id_v5', String(id)); } catch (e) {}
       }
@@ -911,6 +1266,12 @@
         /* Reset button — addEventListener only (no inline handlers) */
         bindTap(document.getElementById('btn-reset'), function () {
           resetChecklist();
+        });
+
+        /* Kid Mode restore + toggle (addEventListener only) */
+        applyKidMode(loadKidMode());
+        bindTap(document.getElementById('btn-kid-mode'), function () {
+          toggleKidMode();
         });
       }
 
