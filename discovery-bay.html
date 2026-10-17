@@ -453,6 +453,59 @@
     }
     .slot.is-calm .tip { background: #ccfbf1; color: #134e4a; }
 
+    .timeline { list-style: none; margin: 0; padding: 2px 0 0; }
+    .tl {
+      display: grid;
+      grid-template-columns: 86px 16px minmax(0, 1fr);
+      column-gap: 8px;
+    }
+    .tl-time {
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.35;
+      text-align: right;
+      color: var(--amber);
+      padding-top: 1px;
+    }
+    .tl-rail { position: relative; }
+    .tl-rail::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 16px;
+      bottom: 0;
+      width: 2px;
+      background: #fcd34d;
+    }
+    .tl:last-child .tl-rail::before { display: none; }
+    .tl-rail::after {
+      content: "";
+      position: absolute;
+      left: 1px;
+      top: 3px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #f59e0b;
+      box-shadow: 0 0 0 3px var(--paper);
+    }
+    .tl.is-calm .tl-time { color: var(--calm); }
+    .tl.is-calm .tl-rail::before { background: #99f6e4; }
+    .tl.is-calm .tl-rail::after { background: #0f766e; }
+    .tl-body { padding-bottom: 18px; min-width: 0; }
+    .tl-body h4 { font-size: 15px; line-height: 1.35; }
+    .tl-body p, .tl-body li { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .tl-body p { margin-top: 6px; }
+    .tl-split { margin-top: 8px; display: grid; gap: 8px; }
+    .tl-split div {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+    .tl-split strong { display: block; font-size: 13px; color: var(--ink); margin-bottom: 2px; }
+    .tl.is-calm .tl-split div { background: #fff; }
+
     .routes { display: grid; gap: 12px; }
     .route {
       border: 1px solid var(--line);
@@ -648,7 +701,7 @@
       <div class="pill">12月27–29日 · 星期日入住 · 酒店包早餐</div>
       <h1>愉景灣 × 迪士尼</h1>
       <p class="hero-sub">3日2夜放鬆之旅</p>
-      <p class="hero-lead">27 號安頓，28 號全日迪士尼，29 號食完包早餐再走。爸爸要休養、大女要減壓。細女午睡改喺園內坐低，唔使中午返酒店。晚餐仍然食熱，生冷唔好當正餐。</p>
+      <p class="hero-lead">全日休閒食買玩，節奏拖慢。用室內坐低、食熱嘢、睇騷，取代排隊同暴走。爸爸休養，細女用 BB 車瞓，大女先至有自己的時間。</p>
       <nav class="hero-links" aria-label="本頁章節">
         <a href="#notes">出發前記住</a>
         <a href="#days">三日點排</a>
@@ -664,12 +717,12 @@
         <div class="principle">
           <div class="principle-label">大女</div>
           <div class="principle-title">呈分試後放鬆</div>
-          <div class="principle-desc">28 號全日留園</div>
+          <div class="principle-desc">同媽媽分頭玩兩個鐘</div>
         </div>
         <div class="principle">
           <div class="principle-label">細女</div>
-          <div class="principle-title">園內坐低休息</div>
-          <div class="principle-desc">唔使中午返酒店瞓</div>
+          <div class="principle-title">BB 車做睡床</div>
+          <div class="principle-desc">14:30 開始園內午睡</div>
         </div>
         <div class="principle">
           <div class="principle-label">早餐</div>
@@ -686,7 +739,7 @@
         <div>
           <span class="step-badge">核對</span>
           <h2 id="notes-title">出發前記住三件事</h2>
-          <p class="hint">訂咗 12月27–29日，星期日入住、星期二退房，早餐已包。第二日全日留園，回程可以用 19:35 穿梭。29 號星期二，童話世界樂園休息。</p>
+          <p class="hint">12月27–29日，星期日入住、星期二退房，早餐已包。28 號低耗能全日留園，大約 19:00 撤退，唔等煙花。</p>
         </div>
       </div>
       <div class="rules">
@@ -700,15 +753,15 @@
         <article class="rule">
           <div class="rule-num" aria-hidden="true">2</div>
           <div>
-            <h3>BB 車做流動大本營</h3>
-            <p>愉景北 12 月海風直吹，體感會比市區凍。輕便 BB 車唔使爸爸抱細女，仲可以掛住全家厚風褸、冷帽同爸爸個重身保溫壺。</p>
+            <h3>BB 車做流動睡床</h3>
+            <p>28 號 14:30 將車校到最平，蓋好保暖氈畀細女瞓。車亦可以掛住風褸、冷帽同保溫壺，爸爸唔使抱人。</p>
           </div>
         </article>
         <article class="rule">
           <div class="rule-num" aria-hidden="true">3</div>
           <div>
-            <h3>牡丹軒提早兩星期訂位</h3>
-            <p>27 號訂 18:00。28 號全日留園，改訂 20:30，先趕得及 19:35 穿梭返到。兩晚都要兒童椅，同唔吹正冷氣嘅梳化位。2215 0833。</p>
+            <h3>兩間餐廳先訂位</h3>
+            <p>27 號牡丹軒 18:00，要兒童椅同唔吹正冷氣嘅梳化位，2215 0833。28 號廣場飯店 12:30，迪士尼入面的中菜，出發前大約一個月用 App 或電話訂。</p>
           </div>
         </article>
       </div>
@@ -722,99 +775,150 @@
           <p class="hint">27 號星期日安頓，28 號星期一全日迪士尼，29 號星期二退房。電話可以左右滑。</p>
         </div>
         <div class="tabs" role="navigation" aria-label="日子">
-          <button type="button" class="day-tab" id="tab-day1" data-day="day1" aria-current="true">Day 1</button>
-          <button type="button" class="day-tab" id="tab-day2" data-day="day2">Day 2</button>
-          <button type="button" class="day-tab" id="tab-day3" data-day="day3">Day 3</button>
+          <button type="button" class="day-tab" id="tab-day1" data-day="day1" aria-current="true">27日</button>
+          <button type="button" class="day-tab" id="tab-day2" data-day="day2">28日</button>
+          <button type="button" class="day-tab" id="tab-day3" data-day="day3">29日</button>
         </div>
       </div>
       <p class="swipe-hint">左右滑睇三日</p>
       <div class="itinerary" id="itinerary">
         <article class="day-block" id="day1" data-day="day1">
-          <div class="day-head"><span class="day-pill d1">12月27日</span><h3>星期日 · 輕鬆安頓，歎熱粵菜</h3></div>
-          <div class="slots">
-            <div class="slot">
-              <div class="slot-time">14:00–15:15</div>
-              <h4>的士直達，安頓回氣</h4>
-              <p>坐紅的或藍的直入愉景北酒店門口（免隧道費）。Check-in 後入房安頓，畀爸爸飲暖水、浸浴鬆一鬆。順便問禮賓部：明早 08:45 迪士尼穿梭巴士有無位、這兩晚禮堂有無婚禮宴會散場、觀光馬車營運時間。</p>
-            </div>
-            <div class="slot">
-              <div class="slot-time">15:15–16:15</div>
-              <h4>白教堂留影，三白灣玩沙</h4>
-              <p>行去海濱長廊同白教堂影張全家福。記住「影完即止」，唔好變攝影馬拉松。之後落石級去三白灣沙灘，細女玩乾沙（封頂 40 分鐘），爸爸坐低飲暖水。12 月海風大，全程唔落水，感覺凍即返房。</p>
-            </div>
-            <div class="slot">
-              <div class="slot-time">16:15–17:15</div>
-              <h4>視乎體力：大白灣遊樂場</h4>
-              <p>如果細女仲好有精神兼天氣好，先搭 4 號或 9 號巴士去愉景廣場，再行去大白灣玩 40 分鐘。天氣一般就直接取消，切勿由酒店步行過去。</p>
-            </div>
-            <div class="slot">
-              <div class="slot-time">18:00–20:15</div>
-              <h4>牡丹軒熱食晚餐</h4>
-              <p>搭巴士去愉景廣場 C 座 1 樓食牡丹軒。點熱湯、蒸魚、時菜同白飯，講明唔要凍盤，安排 3 歲兒童椅。食飽搭巴士返酒店，10 點前全家睡覺，留力聽日全日入園。呢日未用到包早餐。</p>
-            </div>
-          </div>
+          <div class="day-head"><span class="day-pill d1">12月27日</span><h3>星期日 · 輕鬆熱身</h3></div>
+          <ol class="timeline">
+            <li class="tl">
+              <div class="tl-time">14:00–15:30</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>安頓與午睡</h4>
+                <p>的士直達愉景北酒店，入房安頓。星期日搭車同 Check-in 可能人多。入房後畀爸爸同細女休息一陣，飲杯暖水。</p>
+              </div>
+            </li>
+            <li class="tl">
+              <div class="tl-time">15:30–17:00</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>童話世界樂園</h4>
+                <p>行去隔籬 G31。星期日開到 19:00。細女入波波池放電，爸爸全程坐喺場邊。大女可以陪細女，或者喺愉景北商場逛吓影相。</p>
+              </div>
+            </li>
+            <li class="tl">
+              <div class="tl-time">17:00–18:00</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>海濱打卡</h4>
+                <p>趁黃昏未完全天黑，行去白教堂同海濱長廊影全家福。影完即止。</p>
+              </div>
+            </li>
+            <li class="tl">
+              <div class="tl-time">18:00–20:00</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>牡丹軒</h4>
+                <p>搭巴士去愉景廣場食熱粵菜：熱湯、蒸魚、時菜、白飯。講明唔要凍盤，要 3 歲兒童椅。早啲返酒店休息。</p>
+              </div>
+            </li>
+          </ol>
         </article>
 
         <article class="day-block" id="day2" data-day="day2">
-          <div class="day-head"><span class="day-pill d2">12月28日</span><h3>星期一 · 全日迪士尼</h3></div>
-          <div class="slots">
-            <div class="slot">
-              <div class="slot-time">07:15–08:30</div>
-              <h4>酒店包早餐，只夾熱食</h4>
-              <p>海玥早餐已包。只夾熱粥、熱粉麵同蛋，生冷唔好夾。保溫壺裝滿。預約到 08:45 穿梭就可以食完先走；想踩開園就 8:00 前搭 DB03P。帶備 BB 車。</p>
-            </div>
-            <div class="slot">
-              <div class="slot-time">上午</div>
-              <h4>開園直入，先玩齊細女跟到的</h4>
-              <ol class="prio">
-                <li>魔雪奇幻之旅。隊長就用尊享卡。飄雪當風景行下，唔追市集。</li>
-                <li>小小世界，然後小熊維尼。室內、夠暖，大女亦唔會覺得太幼稚。</li>
-                <li>旋轉木馬或小飛象二揀一。城堡日間派對同短隊角色，有先至留。</li>
-              </ol>
-            </div>
-            <div class="slot is-calm">
-              <div class="slot-time">中午</div>
-              <h4>留喺園內坐低，唔返酒店</h4>
-              <p>全日行程的休息放喺園入面。搵室內位置食熱嘢，細女可以 BB 車瞓一陣，爸爸坐低飲暖水。大女喺旁邊靜靜睇。呢段代替返灣午睡，所以中午唔好搭車返愉景北。</p>
-              <p class="tip">攰就停喺幻想世界附近，唔好為咗用盡園區再橫跨去機動遊戲。</p>
-            </div>
-            <div class="slot">
-              <div class="slot-time">下午到晚</div>
-              <h4>有體力先加，夜間表演睇 App</h4>
-              <p>休息完可以再加一個短項目，或者行返魔雪奇緣世界。夜間樹燈同星夢光影之旅，App 見到時間趕得切先留，唔好為咗煙花硬撐。園內如果坐低食飯，都係叫熱食，唔食生冷自助。</p>
-            </div>
-            <div class="slot">
-              <div class="slot-time">回程</div>
-              <h4>19:35 穿梭返，牡丹軒 20:30</h4>
-              <p>預設搭 19:35 酒店穿梭返愉景北，牡丹軒訂 20:30，熱湯、蒸魚、菜、白飯。如果決定睇完夜間表演先走，就改的士返，當晚唔再趕餐廳，Room Service 熱食都得。20:35 那班穿梭返到會太夜食牡丹軒，只當後備。</p>
-            </div>
-          </div>
+          <div class="day-head"><span class="day-pill d2">12月28日</span><h3>星期一 · 低耗能全日</h3></div>
+          <p class="hint">核心係 BB 車做流動睡床，用食飯時間做休息站。</p>
+          <ol class="timeline">
+            <li class="tl">
+              <div class="tl-time">09:30–12:30</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>上午：溫和遊樂</h4>
+                <p>食完酒店包早餐先走，搭 DB03P 或的士。入園直入魔雪奇緣世界玩魔雪奇幻之旅，再行去幻想世界玩小小世界。兩個都係室內、有得坐、唔刺激。</p>
+              </div>
+            </li>
+            <li class="tl">
+              <div class="tl-time">12:30–14:30</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>午餐：廣場飯店</h4>
+                <p>園內的中菜，美心主理。有熱茶、點心、熱湯、炒粉麵，室內坐得舒服。出發前大約一個月用迪士尼 App 或電話訂 12:30，免卻爸爸企喺度等位。</p>
+              </div>
+            </li>
+            <li class="tl is-calm">
+              <div class="tl-time">14:30–16:30</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>下午茶與午睡，分頭行動</h4>
+                <p>將 BB 車校到最平，蓋好保暖氈，畀細女瞓。</p>
+                <div class="tl-split">
+                  <div>
+                    <strong>爸爸</strong>
+                    推住瞓緊的細女，去大街餐廳 Corner Cafe，或者美國小鎮大街的 Starbucks（Market House）。搵室內位坐低，歎杯熱飲。</div>
+                  <div>
+                    <strong>大女與媽媽</strong>
+                    呢兩個鐘去玩稍為刺激的，例如灰熊山谷、鐵甲奇俠，或者出面睇日間巡遊。</div>
+                </div>
+              </div>
+            </li>
+            <li class="tl">
+              <div class="tl-time">16:30–17:15</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>黃昏：室內大騷</h4>
+                <p>一家人會合，去睇迪士尼魔法書房或者獅子王慶典。坐定定大約 30 分鐘，爸爸可以繼續坐。當日場次以 App 為準，前後挪一挪都得。</p>
+              </div>
+            </li>
+            <li class="tl">
+              <div class="tl-time">17:30–19:00</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>晚餐：大冒險家餐廳</h4>
+                <p>喺迷離莊園旁邊。快餐形式，主打亞洲熱食，例如人參雞湯飯、印尼炒飯，有熱湯熱飯，座位區亦大。</p>
+              </div>
+            </li>
+            <li class="tl">
+              <div class="tl-time">19:00 後</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>輕鬆撤退</h4>
+                <p>食飽大約 7 點。12 月夜晚氣溫會急降，海風亦大。唔好捱凍等 8 點半的煙花。直接出門口截的士，或者搭迪士尼線轉 DB03P，返酒店沖涼瞓覺。</p>
+              </div>
+            </li>
+          </ol>
         </article>
 
         <article class="day-block" id="day3" data-day="day3">
-          <div class="day-head"><span class="day-pill d3">12月29日</span><h3>星期二 · 包早餐，然後返屋企</h3></div>
-          <div class="slots">
-            <div class="slot">
-              <div class="slot-time">08:30–10:00</div>
-              <h4>酒店包早餐，慢慢收</h4>
-              <p>第二份已包早餐，繼續只夾熱食。唔使再入樂園，亦唔使為點心趕去廣場。慢慢執清行李。</p>
-            </div>
-            <div class="slot">
-              <div class="slot-time">10:00–11:20</div>
-              <h4>可做可不做</h4>
-              <ol class="prio">
-                <li>天氣好、細女想玩：大白灣遊樂場 40 分鐘。</li>
-                <li>溜冰場如果星期二有公開場：大女滑一段，其他人場邊。先打電話問。</li>
-                <li>童話世界樂園今日休息，唔好特登去。</li>
-                <li>唔想再出去：食完早餐就退房。</li>
-              </ol>
-            </div>
-            <div class="slot">
-              <div class="slot-time">之後</div>
-              <h4>的士直返市區屋企</h4>
-              <p>行李、細女、爸爸都係坐的士最省力。車廂備好溫水同薄外套，舒舒服服返屋企。</p>
-            </div>
-          </div>
+          <div class="day-head"><span class="day-pill d3">12月29日</span><h3>星期二 · 退房，廣場慢活</h3></div>
+          <ol class="timeline">
+            <li class="tl">
+              <div class="tl-time">09:00–11:00</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>慢活早餐與退房</h4>
+                <p>瞓到自然醒。酒店包早餐，食熱粥熱湯麵。11:00 Check-out。行李可以寄低喺禮賓，唔使推住行。</p>
+              </div>
+            </li>
+            <li class="tl">
+              <div class="tl-time">11:00–13:00</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>愉景廣場二揀一</h4>
+                <p>搭 4 或 9 號巴士去廣場。</p>
+                <div class="tl-split">
+                  <div>
+                    <strong>大女向 · 溜冰場</strong>
+                    滑一段，當呈分試最後獎賞。星期二先問 2234 0187 有冇公開場。爸爸同細女場邊睇。</div>
+                  <div>
+                    <strong>細女向 · 大白灣</strong>
+                    天氣好又唔太凍，玩沙同遊樂設施。爸爸坐喺遠離風口的位置。</div>
+                </div>
+              </div>
+            </li>
+            <li class="tl">
+              <div class="tl-time">13:00–14:30</div>
+              <div class="tl-rail" aria-hidden="true"></div>
+              <div class="tl-body">
+                <h4>午餐，然後的士返屋企</h4>
+                <p>肚餓就喺廣場食晏，或者牡丹軒午市點心（平日 11:30 開始）。廣場係無車區，的士入唔到。食完搭 4 或 9 號返酒店門口取行李，再截的士載晒一家人返屋企。</p>
+              </div>
+            </li>
+          </ol>
         </article>
       </div>
     </section>
@@ -839,43 +943,43 @@
         <label class="chk-item">
           <input type="checkbox" id="chk-2" class="checkbox-custom">
           <span class="chk-body">
-            <span class="chk-title">牡丹軒：27 號 18:00、28 號 20:30</span>
-            <span class="chk-tip">28 號要配合全日迪士尼同 19:35 穿梭。兩晚都要兒童椅同梳化位。2215 0833。</span>
+            <span class="chk-title">27 號牡丹軒 18:00</span>
+            <span class="chk-tip">兒童椅，唔吹正冷氣的梳化位。29 號如果食午市點心先至再訂。2215 0833。</span>
           </span>
         </label>
         <label class="chk-item">
           <input type="checkbox" id="chk-3" class="checkbox-custom">
           <span class="chk-body">
-            <span class="chk-title">28 號迪士尼門票、入園預約、尊享卡</span>
-            <span class="chk-tip">全日票。買前再對年齡。尊享卡留給魔雪奇幻之旅。問禮賓 08:45 去程同 19:35 回程穿梭。</span>
+            <span class="chk-title">28 號廣場飯店 12:30</span>
+            <span class="chk-tip">出發前大約一個月，用迪士尼 App 或電話訂。園內中菜，熱茶熱湯。</span>
           </span>
         </label>
         <label class="chk-item">
           <input type="checkbox" id="chk-4" class="checkbox-custom">
           <span class="chk-body">
-            <span class="chk-title">幫細女度高</span>
-            <span class="chk-tip">睇下夠唔夠 95 厘米，決定雪嶺滑雪橇去留。</span>
+            <span class="chk-title">28 號迪士尼門票同入園預約</span>
+            <span class="chk-tip">全日票。買前再對年齡。尊享卡留給魔雪奇幻之旅。</span>
           </span>
         </label>
         <label class="chk-item">
           <input type="checkbox" id="chk-5" class="checkbox-custom">
           <span class="chk-body">
-            <span class="chk-title">保溫壺、頸巾冷帽、輕便 BB 車</span>
-            <span class="chk-tip">BB 車掛住風褸、冷帽同保溫壺，節省爸爸體力。</span>
+            <span class="chk-title">BB 車、保暖氈、保溫壺、冷帽</span>
+            <span class="chk-tip">14:30 將車校平，細女喺車上面瞓。厚風褸掛上車。</span>
           </span>
         </label>
         <label class="chk-item">
           <input type="checkbox" id="chk-6" class="checkbox-custom">
           <span class="chk-body">
-            <span class="chk-title">穿梭位同星期二場地</span>
-            <span class="chk-tip">08:45 去、19:35 返。DB03P 只係開園後備。29 號溜冰場 2234 0187 先問有冇公開場。童話世界樂園星期二休息。</span>
+            <span class="chk-title">當日室內騷時間</span>
+            <span class="chk-tip">魔法書房同獅子王慶典以 App 為準。前後挪一挪，重點係坐低睇。</span>
           </span>
         </label>
         <label class="chk-item">
           <input type="checkbox" id="chk-7" class="checkbox-custom">
           <span class="chk-body">
-            <span class="chk-title">全家共識：28 號全日留園</span>
-            <span class="chk-tip">中午喺園內坐低休息，唔返酒店。夜間表演趕唔切就搭 19:35 穿梭，唔好硬撐。</span>
+            <span class="chk-title">全家共識：約 19:00 離園</span>
+            <span class="chk-tip">唔等 8 點半煙花。的士或者迪士尼線轉 DB03P 返酒店。</span>
           </span>
         </label>
       </div>
@@ -887,7 +991,7 @@
   <script>
     (function () {
       var KID_KEY = 'staycation_kid_mode_v1';
-      var CHECK_PREFIX = 'dbdisney_chk_v2_';
+      var CHECK_PREFIX = 'dbdisney_chk_v3_';
 
       function applyKidMode(on) {
         document.body.classList.toggle('kid-mode', on);
