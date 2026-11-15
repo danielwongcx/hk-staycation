@@ -544,11 +544,18 @@
     }
     .slot.is-calm .tip { background: #ccfbf1; color: #134e4a; }
 
-    .timeline { list-style: none; margin: 0; padding: 2px 0 0; }
+    .timeline {
+      --tl-time: 86px;
+      --tl-rail: 16px;
+      --tl-gap: 8px;
+      list-style: none;
+      margin: 0;
+      padding: 2px 0 0;
+    }
     .tl {
       display: grid;
-      grid-template-columns: 86px 16px minmax(0, 1fr);
-      column-gap: 8px;
+      grid-template-columns: var(--tl-time) var(--tl-rail) minmax(0, 1fr);
+      column-gap: var(--tl-gap);
     }
     .tl-time {
       font-size: 12px;
@@ -596,6 +603,50 @@
     }
     .tl-split strong { display: block; font-size: 13px; color: var(--ink); margin-bottom: 2px; }
     .tl.is-calm .tl-split div { background: #fff; }
+
+    .shot { margin: 10px 0 0; }
+    .shot-row {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .shot-row > .shot { margin-top: 0; }
+    .shot img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .shot-tall img {
+      width: auto;
+      max-width: 100%;
+      max-height: 520px;
+      margin-inline: auto;
+    }
+    .shot figcaption { margin-top: 6px; }
+    .shot-cap {
+      display: block;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--ink);
+    }
+    .shot-credit {
+      display: block;
+      margin-top: 3px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+    .shot-credit a {
+      color: inherit;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
 
     .routes { display: grid; gap: 12px; }
     .route {
@@ -746,6 +797,17 @@
       .rules .rule:last-child,
       .findings .finding:last-child { grid-column: 1 / -1; }
       .act-grid { grid-template-columns: 1fr 1fr; }
+      .shot-row.cols-2 { grid-template-columns: 1fr 1fr; align-items: start; }
+      .shot img {
+        width: auto;
+        max-width: 100%;
+        max-height: 420px;
+        margin-inline: auto;
+      }
+      .shot-row.cols-2 .shot img {
+        width: 100%;
+        max-height: none;
+      }
       .geo { grid-template-columns: repeat(3, 1fr); gap: 12px; }
       .geo li {
         border-left: 0;
@@ -770,6 +832,17 @@
       .day-panel { margin-bottom: 16px; }
       body { background: #fff; padding-bottom: 0; }
       .hero { box-shadow: none; }
+      .shot-credit a[href]::after { content: " (" attr(href) ")"; }
+    }
+    @media (max-width: 799px) {
+      .tl-body > .shot,
+      .tl-body > .shot-row {
+        position: relative;
+        z-index: 1;
+        background: var(--paper);
+        margin-left: calc(-1 * (var(--tl-time) + var(--tl-rail) + (2 * var(--tl-gap))));
+        width: calc(100% + var(--tl-time) + var(--tl-rail) + (2 * var(--tl-gap)));
+      }
     }
 
     .filter-btn, .btn-reset, .mode-toggle, .nav-fab, .chk-item, .act, .rule {
@@ -947,6 +1020,13 @@
               <div class="tl-body">
                 <h4>🚕 的士直達，安頓回氣</h4>
                 <p>紅的或藍的直入酒店門口，免隧道費。放低行李，煲水灌滿保溫壺。有時間就俾爸爸浸暖水浴。問禮賓：呢兩晚白教堂有冇婚禮散場、聽日溜冰場公開場時間。</p>
+                <figure class="shot shot-tall">
+                  <img src="photos/01-auberge.jpg" width="1920" height="2880" alt="香港愉景灣酒店主樓、正門迴旋處同後面嘅海" decoding="async" loading="lazy">
+                  <figcaption>
+                    <span class="shot-cap">香港愉景灣酒店（Auberge Discovery Bay Hong Kong）門面同海景，27 號入住嘅愉景北酒店。</span>
+                    <span class="shot-credit"><span lang="en">Photo: Exploringlife, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license">CC BY-SA 4.0</a>. Source: <a href="https://commons.wikimedia.org/wiki/File:Auberge_Discovery_Bay_Hong_Kong.jpg">Auberge Discovery Bay Hong Kong</a>.</span> 已對原檔縮放（闊 1920 像素）。</span>
+                  </figcaption>
+                </figure>
               </div>
             </li>
             <li class="tl">
@@ -954,7 +1034,14 @@
               <div class="tl-rail" aria-hidden="true"></div>
               <div class="tl-body">
                 <h4>🎈 童話世界樂園</h4>
-                <p>行去隔籬 G31，星期日開到 19:00。細女玩波波池同低層滑梯，60–75 分鐘就夠。爸爸坐場邊，或者留喺房。大女可以陪玩，或者喺商場行下。</p>
+                <p>行去隔籬 G31，星期日開到 19:00。細女玩波波池同低層滑梯，60–75 分鐘就夠。爸爸坐場邊，或者留喺房。大女可以陪玩，或者喺商場行下。下面張相係愉景北商場外觀，唔係樂園室內。</p>
+                <figure class="shot">
+                  <img src="photos/02-context-db-north-plaza.jpg" width="1920" height="1280" alt="從高處望落愉景北商場、橙色屋頂同後面嘅海灣。呢張係商場外觀，唔係童話世界樂園室內" decoding="async" loading="lazy">
+                  <figcaption>
+                    <span class="shot-cap">愉景北商場外觀。童話世界樂園（Cinderella Adventure）喺商場地下 G31，電話 6315 0611。呢張唔係樂園室內。2026年11月15日商戶指南：星期五至日同公眾假期 10:00–19:00。26 號仍然打去確認。</span>
+                    <span class="shot-credit"><span lang="en">Photo: Exploringlife, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license">CC BY-SA 4.0</a>. Source: <a href="https://commons.wikimedia.org/wiki/File:Discovery_Bay_North_Plaza.jpg">Discovery Bay North Plaza</a>.</span> 已對原檔縮放（闊 1920 像素）。</span>
+                  </figcaption>
+                </figure>
               </div>
             </li>
             <li class="tl">
@@ -963,6 +1050,22 @@
               <div class="tl-body">
                 <h4>📸 白教堂全家福</h4>
                 <p>趁日落前，喺白教堂同海濱長廊影相：療程畢業、考完呈分試、聖誕。影完即返室內。今日唔去三白灣摸黑吹風。</p>
+                <div class="shot-row cols-2">
+                  <figure class="shot">
+                    <img src="photos/03-white-chapel.jpg" width="1920" height="1440" alt="三角形白色玻璃海濱禮堂，又叫白教堂，後面係酒店，右邊係海" decoding="async" loading="lazy">
+                    <figcaption>
+                      <span class="shot-cap">海濱禮堂（The Pavilion），又叫白教堂（White Chapel）。日落前可以喺教堂外影全家福。</span>
+                      <span class="shot-credit"><span lang="en">Photo: LN9267, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license">CC BY-SA 4.0</a>. Source: <a href="https://commons.wikimedia.org/wiki/File:Discovery_Bay_White_Chapel_13-07-2025(1).jpg">Discovery Bay White Chapel</a>.</span> 已對原檔縮放（闊 1920 像素）。</span>
+                    </figcaption>
+                  </figure>
+                  <figure class="shot">
+                    <img src="photos/03b-love-lock-promenade.jpg" width="1920" height="1440" alt="海濱長廊上一排紫色同粉紅色心形鎖框，望向對面嘅山同海" decoding="async" loading="lazy">
+                    <figcaption>
+                      <span class="shot-cap">同一帶嘅海濱長廊（Love Lock Promenade），心形鎖框。</span>
+                      <span class="shot-credit"><span lang="en">Photo: LN9267, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license">CC BY-SA 4.0</a>. Source: <a href="https://commons.wikimedia.org/wiki/File:Discovery_Bay_Love_Lock_Promenade_13-07-2025.jpg">Discovery Bay Love Lock Promenade</a>.</span> 已對原檔縮放（闊 1920 像素）。</span>
+                    </figcaption>
+                  </figure>
+                </div>
               </div>
             </li>
             <li class="tl">
@@ -973,7 +1076,7 @@
                 <div class="tl-split">
                   <div>
                     <strong>A · 精神好</strong>
-                    搭 4 或 9 號約 10 分鐘去牡丹軒。熱湯、蒸魚、時菜、白飯，走凍盤。</div>
+                    搭 4 或 9 號約 10 分鐘去牡丹軒（廣場 C 座 1 樓 153A）。熱湯、蒸魚、時菜、白飯，走凍盤。</div>
                   <div>
                     <strong>B · 零交通</strong>
                     落樓食越不同全熟牛河或雞絲湯河、熱春卷。或者海玥散叫熱湯麵、海南雞飯。食飽早啲上房。</div>
@@ -1001,6 +1104,13 @@
               <div class="tl-body">
                 <h4>🎡 廣場二揀一</h4>
                 <p>搭 4 或 9 號出愉景廣場。</p>
+                <figure class="shot">
+                  <img src="photos/06-db-plaza.jpg" width="1920" height="1440" alt="愉景廣場室外石板廣場，左邊建築物有 DB Plaza 標誌" decoding="async" loading="lazy">
+                  <figcaption>
+                    <span class="shot-cap">愉景廣場（DB Plaza）室外。28 號搭 4 或 9 號巴士來午餐同溜冰。</span>
+                    <span class="shot-credit"><span lang="en">Photo: LN9267, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license">CC BY-SA 4.0</a>. Source: <a href="https://commons.wikimedia.org/wiki/File:Discovery_Bay_Plaza_19-01-2026.jpg">Discovery Bay Plaza</a>.</span> 已對原檔縮放（闊 1920 像素）。</span>
+                  </figcaption>
+                </figure>
                 <div class="tl-split">
                   <div>
                     <strong>大女 · 溜冰場</strong>
@@ -1009,6 +1119,36 @@
                     <strong>細女 · 沙灘</strong>
                     天氣暖和無風：大白灣遊樂場 40 分鐘。風大就改酒店樓下三白灣玩乾沙 30 分鐘。</div>
                 </div>
+                <figure class="shot">
+                  <img src="photos/07-db-ice-rink.jpg" width="1920" height="1440" alt="愉景廣場內的溜冰場，冰面上有人溜冰，遠牆有 DB Ice Rink 標誌" decoding="async" loading="lazy">
+                  <figcaption>
+                    <span class="shot-cap">大女選擇：愉景廣場地下 G53–G55 的愉景灣溜冰場（DB Ice Rink）。28 號公開場時間要打 2234 0187 問，呢張相冇場次。</span>
+                    <span class="shot-credit"><span lang="en">Photo: LN9267, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license">CC BY-SA 4.0</a>. Source: <a href="https://commons.wikimedia.org/wiki/File:Discovery_Bay_Plaza_09-01-2026(1).jpg">Discovery Bay Plaza ice rink</a>.</span> 已對原檔縮放（闊 1920 像素）。</span>
+                  </figcaption>
+                </figure>
+                <div class="shot-row cols-2">
+                  <figure class="shot">
+                    <img src="photos/04-tai-pak-playground.jpg" width="1920" height="1441" alt="大白灣沙灘上的遊樂場，有滑梯、繩網、鞦韆同沙地" decoding="async" loading="lazy">
+                    <figcaption>
+                      <span class="shot-cap">細女選擇：大白灣遊樂場。天氣暖和無風，可以玩約 40 分鐘。</span>
+                      <span class="shot-credit"><span lang="en">Photo: Peachyeung316, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license">CC BY-SA 4.0</a>. Source: <a href="https://commons.wikimedia.org/wiki/File:Children_Playgraound_at_Tai_Pak_Beach.jpg">Children's playground at Tai Pak Beach</a>.</span> 已對原檔縮放（闊 1920 像素）。</span>
+                    </figcaption>
+                  </figure>
+                  <figure class="shot">
+                    <img src="photos/04b-tai-pak-beach.jpg" width="1920" height="1440" alt="大白灣沙灘同岸邊的愉景灣屋宇，前面係海" decoding="async" loading="lazy">
+                    <figcaption>
+                      <span class="shot-cap">大白灣沙灘，2026年1月影。</span>
+                      <span class="shot-credit"><span lang="en">Photo: LN9267, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license">CC BY-SA 4.0</a>. Source: <a href="https://commons.wikimedia.org/wiki/File:Tai_Pak_Beach_19-01-2026.jpg">Tai Pak Beach</a>.</span> 已對原檔縮放（闊 1920 像素）。</span>
+                    </figcaption>
+                  </figure>
+                </div>
+                <figure class="shot">
+                  <img src="photos/05-sam-pak-wan.jpg" width="1920" height="1440" alt="從山上俯瞰香港愉景灣酒店旁邊的三白灣沙灘同海灣，係高處景，唔係沙灘近鏡" decoding="async" loading="lazy">
+                  <figcaption>
+                    <span class="shot-cap">風大後備：從山上望落酒店旁邊的三白灣。呢張係俯瞰，唔係沙灘上的近鏡。</span>
+                    <span class="shot-credit"><span lang="en">Photo: Underwaterbuffalo, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license">CC BY-SA 4.0</a>. Source: <a href="https://commons.wikimedia.org/wiki/File:Discovery_Bay_08.jpg">Discovery Bay hilltop view</a>.</span> 已對原檔縮放（闊 1920 像素）。</span>
+                  </figcaption>
+                </figure>
               </div>
             </li>
             <li class="tl">
@@ -1019,13 +1159,22 @@
                 <div class="tl-split">
                   <div>
                     <strong>牡丹軒</strong>
-                    廣場 C 座 1 樓，平日 11:30 開。熱茶、點心、炒粉麵。如果昨晚食咗越不同，今日食呢間。</div>
+                    廣場 C 座 1 樓 153A，平日 11:30 開。熱茶、點心、炒粉麵。如果昨晚食咗越不同，今日食呢間。</div>
                   <div>
                     <strong>PizzaExpress</strong>
                     D'Deck 地下室內位。蘑菇湯、焗肉醬千層麵、熱 Pizza。商戶指南舖號係 G01B／G01C。</div>
+                </div>
+                <figure class="shot">
+                  <img src="photos/06b-ddeck-pizzaexpress.jpg" width="1920" height="1440" alt="D'Deck 海旁 PizzaExpress 舖面同戶外座位。右邊畫面有 McCafé 招牌，主體係 PizzaExpress" decoding="async" loading="lazy">
+                  <figcaption>
+                    <span class="shot-cap">D'Deck 海旁的 PizzaExpress，28 號熱午餐選擇之一。右邊畫面亦見到 McCafé，呢張係 PizzaExpress。</span>
+                    <span class="shot-credit"><span lang="en">Photo: LN9267, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license">CC BY-SA 4.0</a>. Source: <a href="https://commons.wikimedia.org/wiki/File:Discovery_Bay_Pizza_Express_19-01-2026(1).jpg">Discovery Bay PizzaExpress</a>.</span> 已對原檔縮放（闊 1920 像素）。</span>
+                  </figcaption>
+                </figure>
+                <div class="tl-split">
                   <div>
-                    <strong>Zaks</strong>
-                    印尼炒飯、熱湯麵、全熟扒、漢堡。一定要室內位。OpenRice 曾經標示結業，入座前先確認仲開。</div>
+                    <strong>Zaks · 當已結業</strong>
+                    OpenRice 喺 2026年11月15日標題寫住「ZAKS (Closed)」。當佢已經結業，呢餐改去 PizzaExpress 或牡丹軒。</div>
                 </div>
               </div>
             </li>
@@ -1075,6 +1224,13 @@
               <div class="tl-body">
                 <h4>🚢 魔雪奇緣，然後幻想世界</h4>
                 <p>先玩魔雪奇幻之旅。隊超過 30 分鐘就買單項尊享卡。順路睇冬日佈置同飄雪。跟住小小世界同小熊維尼，全部室內、有得坐、冇身高限制。</p>
+                <figure class="shot">
+                  <img src="photos/09-frozen-ever-after.jpg" width="1920" height="1440" alt="香港迪士尼魔雪奇緣世界，魔雪奇幻之旅入口牌匾。訪客相片，唔係官方宣傳照" decoding="async" loading="lazy">
+                  <figcaption>
+                    <span class="shot-cap">魔雪奇緣世界的魔雪奇幻之旅入口。訪客相片，唔係迪士尼官方宣傳照。迪士尼商標屬迪士尼。</span>
+                    <span class="shot-credit"><span lang="en">Photo: Tombus20032000, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license">CC BY-SA 4.0</a>. Source: <a href="https://commons.wikimedia.org/wiki/File:Entrance_of_Frozen_Ever_After,_Hong_Kong_Disneyland_2023.jpg">Entrance of Frozen Ever After</a>.</span> 已對原檔縮放（闊 1920 像素）。</span>
+                  </figcaption>
+                </figure>
               </div>
             </li>
             <li class="tl">
@@ -1123,6 +1279,13 @@
               <div class="tl-body">
                 <h4>🚕 拎行李，直返屋企</h4>
                 <p>入夜會凍，唔等 20:30 煙花。行出大街睇埋聖誕樹同飄雪，出閘拎行李，迪士尼的士站上車返市區。</p>
+                <figure class="shot">
+                  <img src="photos/08-hkdl-main-street.jpg" width="1070" height="370" alt="香港迪士尼樂園美國小鎮大街望向城堡，兩邊係商店。前景人面已裁走。訪客相片，唔係官方宣傳照，亦唔係廣場飯店" decoding="async" loading="lazy">
+                  <figcaption>
+                    <span class="shot-cap">香港迪士尼樂園美國小鎮大街，望向城堡。29 日入園後會行經這裡，廣場飯店亦喺呢條大街，但呢張唔係餐廳，亦冇廣場飯店相片。訪客相片，唔係迪士尼官方宣傳照。迪士尼商標屬迪士尼。</span>
+                    <span class="shot-credit"><span lang="en">Photo: Massarkasch, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">CC BY-SA 3.0</a>. Source: <a href="https://commons.wikimedia.org/wiki/File:%D0%94%D0%B8%D1%81%D0%BD%D0%B5%D0%B9%D0%BB%D0%B5%D0%BD%D0%B4_%D0%93%D0%BE%D0%BD%D0%BA%D0%BE%D0%BD%D0%B3_%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%83%D0%BB%D0%B8%D1%86%D0%B0.jpg">Hong Kong Disneyland Main Street</a>.</span> 已對原檔縮放，並裁剪以去掉前景近鏡人面，構圖聚焦大街同城堡。</span>
+                  </figcaption>
+                </figure>
               </div>
             </li>
           </ol>
@@ -1150,11 +1313,11 @@
           <p class="fit">舖號以商戶指南為準，喺 D'Deck 地下，唔係 G21。</p>
         </article>
         <article class="act">
-          <div class="act-kicker"><span class="tag tag-no">先確認</span><span class="tag">各食各</span></div>
+          <div class="act-kicker"><span class="tag tag-no">當已結業</span><span class="tag">各食各</span></div>
           <h4>⚠️ Zaks</h4>
-          <p class="meta">D'Deck 地下 G04 及 1 樓 · 去之前再問</p>
-          <p>餐牌原本好厚：大女可以叫西餐或漢堡，爸爸叫印尼炒飯、熱湯麵或全熟扒。但 OpenRice 標示已結業，2024 年 3 月亦有報道突然關門。如果重開，一定要講明室內座位，最好要梳化位。12 月唔好坐露天。</p>
-          <p class="fit">未確認重開之前，呢餐改去 PizzaExpress 或牡丹軒。</p>
+          <p class="meta">D'Deck 地下 G04 及 1 樓 · OpenRice 標題「ZAKS (Closed)」</p>
+          <p>OpenRice 喺 2026年11月15日標題寫住「ZAKS (Closed)」，2024年3月亦有報道突然關門。當佢已經結業，唔好當正午餐選擇。餐牌原本有印尼炒飯、熱湯麵、全熟扒同漢堡；如果臨時見到重開，先至問室內位，12 月唔好坐露天。</p>
+          <p class="fit">呢餐改去 PizzaExpress 或牡丹軒。</p>
         </article>
       </div>
 
@@ -1163,9 +1326,9 @@
       <div class="act-grid">
         <article class="act">
           <div class="act-kicker"><span class="tag tag-do">最暖胃</span><span class="tag">零交通</span></div>
-          <h4>🍜 越不同</h4>
+          <h4>🍜 越不同 Viet Bu Tong Kitchen & Bar</h4>
           <p class="meta">愉景北商場地下 G27 · 2338 8970</p>
-          <p>一碗熱湯河最啱休養。生牛河要講明全熟牛，或者改叫雞絲湯河。細女可以食熱春卷或其他熟食小食。大約 10:30–21:30。食完行兩步返房。</p>
+          <p>一碗熱湯河最啱休養。生牛河要講明全熟牛，或者改叫雞絲湯河。細女可以食熱春卷或其他熟食小食。商戶指南每日 11:00–22:00。食完行兩步返房。</p>
         </article>
         <article class="act">
           <div class="act-kicker"><span class="tag tag-opt">只叫單點</span><span class="tag">最靜</span></div>
@@ -1223,7 +1386,7 @@
           <input type="checkbox" id="chk-3" class="checkbox-custom">
           <span class="chk-body">
             <span class="chk-title">🥟 牡丹軒 27 或 28 號 18:00</span>
-            <span class="chk-tip">4 位，3 歲兒童椅，避開冷氣風口。2215 0833。</span>
+            <span class="chk-tip">廣場 C 座 1 樓 153A。4 位，3 歲兒童椅，避開冷氣風口。2215 0833。</span>
           </span>
         </label>
         <label class="chk-item">
